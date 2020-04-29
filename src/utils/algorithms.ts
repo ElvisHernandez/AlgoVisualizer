@@ -12,7 +12,6 @@ function mergeHalves(la: number[], ra: number[]): number[] {
     }
     maI++;
   }
-
   while (laI < la.length) {
     mergedArray[maI] = la[laI];
     laI++;
@@ -23,7 +22,6 @@ function mergeHalves(la: number[], ra: number[]): number[] {
     raI++;
     maI++;
   }
-
   return mergedArray;
 }
 
