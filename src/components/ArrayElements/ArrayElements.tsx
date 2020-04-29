@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
-import ArrayElement from "../ArrayElement/ArrayElement";
+import ArrayElement, { ArrayElementProps } from "../ArrayElement/ArrayElement";
 import { mergeSort, compareArrays } from "../../utils/algorithms";
 
 export interface ArrayElementsProps {}
 
 const ArrayElements: React.FC<ArrayElementsProps> = () => {
   const [array, setArray] = useState<number[]>([]);
+  const [multiArray, setMultiArray] = useState<Array<number[]>>([]);
   //   const color = "red";
 
   // function testSort(): void {
@@ -36,11 +37,25 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
 
   function sortArray(): void {
     const temp = array.slice();
-    console.log(array);
-    mergeSort(temp);
-    console.log(array);
+    console.log(temp);
+    mergeSort(temp, setMultiArray);
     setArray(temp);
   }
+
+  useEffect(() => {
+    console.log(multiArray);
+  }, [multiArray]);
+
+  function jsxComparator(
+    element1: React.FC<ArrayElementProps>,
+    element2: React.FC<ArrayElementProps>
+  ): boolean {}
+
+  console.log(
+    +Object.values(
+      <ArrayElement background="red" width="5px" height="10px" />
+    )[4].height.slice(0, 2)
+  );
 
   return (
     <div className={styles.bars}>

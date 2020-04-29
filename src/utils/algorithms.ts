@@ -1,7 +1,10 @@
-function mergeHalves(la: number[], ra: number[]): number[] {
+function mergeHalves(
+  la: number[],
+  ra: number[],
+  setArray: React.Dispatch<React.SetStateAction<number[][]>>
+): number[] {
   let mergedArray: number[] = [];
   let [laI, raI, maI] = [0, 0, 0]; // left, right, and merged array indices
-
   while (laI < la.length && raI < ra.length) {
     if (la[laI] < ra[raI]) {
       mergedArray[maI] = la[laI];
@@ -25,20 +28,26 @@ function mergeHalves(la: number[], ra: number[]): number[] {
   return mergedArray;
 }
 
-export function mergeSort(array: number[]): void {
+export function mergeSort(
+  array: number[],
+  setMultiArray: React.Dispatch<React.SetStateAction<number[][]>>
+): void {
+  setMultiArray((prev: any) => [...prev, array]);
   const len = array.length;
   if (len <= 1) return;
   const mid = Math.floor(len / 2);
   let la = array.slice(0, mid);
   let ra = array.slice(mid, len);
 
-  mergeSort(la);
-  mergeSort(ra);
-  const mergedArray = mergeHalves(la, ra);
+  // setMultiArray((prev: any) => [...prev, array]);
+  mergeSort(la, setMultiArray);
+  mergeSort(ra, setMultiArray);
+  const mergedArray = mergeHalves(la, ra, setMultiArray);
 
   for (let i = 0; i < len; i++) {
     array[i] = mergedArray[i];
   }
+  //  setMultiArray((prev: any) => [...prev, array]);
 }
 
 export function compareArrays(array1: number[], array2: number[]): boolean {
