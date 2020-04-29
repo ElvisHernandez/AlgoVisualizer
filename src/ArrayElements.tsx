@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import styles from "./ArrayElements.module.css";
+import ArrayElement from "./ArrayElement";
 
 export interface ArrayElementsProps {}
 
 const ArrayElements: React.FC<ArrayElementsProps> = () => {
-  const [array, setArray] = useState<number[]>([]);
+  //   const [array, setArray] = useState<number[]>([]);
+  const color = "red";
 
   function makeArray(bars: number): number[] {
     const currentArray = [];
 
     for (let i = 0; i < bars; i++) {
-      const height = Math.floor(Math.random() * 991 + 10);
+      const height = Math.floor(Math.random() * 691 + 10);
       currentArray.push(height);
     }
     return currentArray;
@@ -18,9 +20,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
 
   return (
     <div className={styles.bars}>
-      {makeArray(100).map((num) => (
-        <div style={{ width: "5px", height: num, background: "red" }}></div>
-      ))}
+      <ArrayElement background="teal" width="5px" height={10 + "px"} />
     </div>
   );
 };
