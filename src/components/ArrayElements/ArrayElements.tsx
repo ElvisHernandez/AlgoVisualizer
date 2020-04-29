@@ -9,6 +9,19 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
   //   const [array, setArray] = useState<number[]>([]);
   //   const color = "red";
 
+  function testSort(): void {
+    for (let i = 0; i < 1000; i++) {
+      const array = makeArray(100);
+      const copy1 = array.slice();
+      const copy2 = array.slice();
+
+      mergeSort(copy1);
+      copy2.sort((a, b) => a - b);
+
+      console.log(compareArrays(copy1, copy2));
+    }
+  }
+
   function makeArray(bars: number): number[] {
     const currentArray = [];
 
@@ -17,18 +30,10 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
       currentArray.push(height);
     }
 
-    const arrayCopy = currentArray.slice();
-
-    mergeSort(arrayCopy);
-
-    currentArray.sort((a, b) => a - b);
-
-    console.log(
-      "The arrays are equal: ",
-      compareArrays(currentArray, arrayCopy)
-    );
     return currentArray;
   }
+
+  testSort();
 
   return (
     <div className={styles.bars}>
