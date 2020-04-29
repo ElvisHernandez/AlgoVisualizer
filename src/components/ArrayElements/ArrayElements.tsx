@@ -34,10 +34,19 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
     // mergeSort(currentArray);
   }
 
+  function sortArray(): void {
+    const temp = array.slice();
+    console.log(array);
+    mergeSort(temp);
+    console.log(array);
+    setArray(temp);
+  }
+
   return (
     <div className={styles.bars}>
       <div>
         <button onClick={makeArray}>Make Array</button>
+        <button onClick={sortArray}>Sort Array</button>
       </div>
       {array.map((bar, index) => (
         <ArrayElement
