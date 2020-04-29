@@ -1,7 +1,8 @@
 import React from "react";
+import ArrayElements from "./ArrayElements";
 
 function App() {
-  return <h1>AlgoVisualizer!</h1>;
+  return <ArrayElements />;
 }
 
 export default App;
