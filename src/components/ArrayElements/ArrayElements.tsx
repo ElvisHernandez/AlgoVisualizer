@@ -8,20 +8,6 @@ export interface ArrayElementsProps {}
 const ArrayElements: React.FC<ArrayElementsProps> = () => {
   const [array, setArray] = useState<JSX.Element[]>([]);
   const [multiArray, setMultiArray] = useState<Array<JSX.Element[]>>([]);
-  //   const color = "red";
-
-  // function testSort(): void {
-  //   for (let i = 0; i < 1000; i++) {
-  //     const array = makeArray(100);
-  //     const copy1 = array.slice();
-  //     const copy2 = array.slice();
-
-  //     mergeSort(copy1);
-  //     copy2.sort((a, b) => a - b);
-
-  //     console.log(compareArrays(copy1, copy2));
-  //   }
-  // }
 
   function makeArray(): void {
     const currentArray = [];
@@ -29,7 +15,13 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
     for (let i = 0; i < 100; i++) {
       const height = Math.floor(Math.random() * 691 + 10);
       currentArray.push(
-        <ArrayElement background="teal" width="10px" height={height + "px"} />
+        <ArrayElement
+          key={i}
+          keyProp={i}
+          background="teal"
+          width="10px"
+          height={height + "px"}
+        />
       );
     }
 
@@ -40,7 +32,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
   function sortArray(): void {
     const temp = array.slice();
     console.log(temp);
-    mergeSort(temp, setArray);
+    mergeSort(temp, temp, setArray);
     setArray(temp);
   }
 

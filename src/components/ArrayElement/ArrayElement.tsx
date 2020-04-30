@@ -4,6 +4,7 @@ export interface ArrayElementProps {
   background: string;
   width: string;
   height: string;
+  keyProp?: number;
 }
 
 const ArrayElement: React.FC<ArrayElementProps> = ({
