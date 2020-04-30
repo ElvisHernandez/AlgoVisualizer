@@ -1,12 +1,19 @@
-function mergeHalves(
-  la: number[],
-  ra: number[],
-  setArray: React.Dispatch<React.SetStateAction<number[][]>>
-): number[] {
-  let mergedArray: number[] = [];
+import { ArrayElementProps } from "../components/ArrayElement/ArrayElement";
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function mergeHalves(
+  la: JSX.Element[],
+  ra: JSX.Element[],
+  setArray: any
+) {
+  await sleep(100);
+  let mergedArray: JSX.Element[] = [];
   let [laI, raI, maI] = [0, 0, 0]; // left, right, and merged array indices
   while (laI < la.length && raI < ra.length) {
-    if (la[laI] < ra[raI]) {
+    if (jsxComparator(la[laI], ra[raI])) {
       mergedArray[maI] = la[laI];
       laI++;
     } else {
@@ -28,26 +35,22 @@ function mergeHalves(
   return mergedArray;
 }
 
-export function mergeSort(
-  array: number[],
-  setMultiArray: React.Dispatch<React.SetStateAction<number[][]>>
-): void {
-  setMultiArray((prev: any) => [...prev, array]);
+export async function mergeSort(array: JSX.Element[], setArray: any) {
   const len = array.length;
   if (len <= 1) return;
   const mid = Math.floor(len / 2);
   let la = array.slice(0, mid);
   let ra = array.slice(mid, len);
 
-  // setMultiArray((prev: any) => [...prev, array]);
-  mergeSort(la, setMultiArray);
-  mergeSort(ra, setMultiArray);
-  const mergedArray = mergeHalves(la, ra, setMultiArray);
+  await mergeSort(la, setArray);
+  await mergeSort(ra, setArray);
+  const mergedArray = await mergeHalves(la, ra, setArray);
 
   for (let i = 0; i < len; i++) {
     array[i] = mergedArray[i];
   }
-  //  setMultiArray((prev: any) => [...prev, array]);
+  await sleep(1000);
+  await setArray(array);
 }
 
 export function compareArrays(array1: number[], array2: number[]): boolean {
@@ -59,4 +62,11 @@ export function compareArrays(array1: number[], array2: number[]): boolean {
     if (array1[i] !== array2[i]) return false;
   }
   return true;
+}
+
+function jsxComparator(element1: JSX.Element, element2: JSX.Element): boolean {
+  const height1: number = +Object.values(element1)[4].height.slice(0, -2);
+  const height2: number = +Object.values(element2)[4].height.slice(0, -2);
+
+  return height1 - height2 < 0 ? true : false;
 }

@@ -6,8 +6,8 @@ import { mergeSort, compareArrays } from "../../utils/algorithms";
 export interface ArrayElementsProps {}
 
 const ArrayElements: React.FC<ArrayElementsProps> = () => {
-  const [array, setArray] = useState<number[]>([]);
-  const [multiArray, setMultiArray] = useState<Array<number[]>>([]);
+  const [array, setArray] = useState<JSX.Element[]>([]);
+  const [multiArray, setMultiArray] = useState<Array<JSX.Element[]>>([]);
   //   const color = "red";
 
   // function testSort(): void {
@@ -28,7 +28,9 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
 
     for (let i = 0; i < 100; i++) {
       const height = Math.floor(Math.random() * 691 + 10);
-      currentArray.push(height);
+      currentArray.push(
+        <ArrayElement background="teal" width="10px" height={height + "px"} />
+      );
     }
 
     setArray(currentArray);
@@ -38,7 +40,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
   function sortArray(): void {
     const temp = array.slice();
     console.log(temp);
-    mergeSort(temp, setMultiArray);
+    mergeSort(temp, setArray);
     setArray(temp);
   }
 
@@ -46,32 +48,31 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
     console.log(multiArray);
   }, [multiArray]);
 
-  function jsxComparator(
-    element1: React.FC<ArrayElementProps>,
-    element2: React.FC<ArrayElementProps>
-  ): boolean {}
+  // useEffect(() => {
 
-  console.log(
-    +Object.values(
-      <ArrayElement background="red" width="5px" height="10px" />
-    )[4].height.slice(0, 2)
-  );
+  // },[array])
 
   return (
-    <div className={styles.bars}>
-      <div>
-        <button onClick={makeArray}>Make Array</button>
-        <button onClick={sortArray}>Sort Array</button>
-      </div>
-      {array.map((bar, index) => (
+    <>
+      <div className={styles.bars}>
+        <div>
+          <button onClick={makeArray}>Make Array</button>
+          <button onClick={sortArray}>Sort Array</button>
+        </div>
+        {/* {array.map((bar, index) => (
         <ArrayElement
           key={`${index}`}
           background="teal"
           width="5px"
           height={bar + "px"}
         />
-      ))}
-    </div>
+      ))} */}
+        {array.map((bar) => bar)}
+      </div>
+      {/* <div className={styles.bars}>
+        {multiArray.map((bars) => bars.map((bar) => bar))}
+      </div> */}
+    </>
   );
 };
 
