@@ -4,6 +4,7 @@ export interface ArrayElementProps {
   background: string;
   width: string;
   height: string;
+  marginRight?: string;
 }
 
 const ArrayElement: React.FC<ArrayElementProps> = ({
@@ -15,6 +16,7 @@ const ArrayElement: React.FC<ArrayElementProps> = ({
     background: background,
     width: width,
     height: height,
+    marginRight: "2px",
   };
   return <div style={style}></div>;
 };
