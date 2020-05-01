@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
 import ArrayElement, { ArrayElementProps } from "../ArrayElement/ArrayElement";
-import { mergeSort } from "../../utils/algorithms";
+import { mergeSort, setGlobalArray } from "../../utils/algorithms";
 
 export interface ArrayElementsProps {}
 
@@ -32,6 +32,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
   function sortArray(): void {
     const temp = sourceArray.slice();
     // console.log(temp);
+    setGlobalArray(sourceArray);
     mergeSort(temp, array, setArray, setSourceArray);
     // setSourceArray(temp);
   }

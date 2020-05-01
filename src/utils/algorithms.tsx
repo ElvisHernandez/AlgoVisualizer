@@ -52,6 +52,12 @@ async function mergeHalves(
   return mergedArray;
 }
 
+let globalArray: any = [];
+
+export function setGlobalArray(sourceArray: any) {
+  globalArray = sourceArray;
+}
+
 export async function mergeSort(
   sourceArray: any,
   array: JSX.Element[],
@@ -85,13 +91,13 @@ export async function mergeSort(
     array[i] = mergedArray[i];
   }
 
-  let temp = sourceArray.slice();
+  let temp = globalArray.slice();
 
-  let indices: any = [];
+  let indices: number[] = [];
 
   array.forEach((element1) => {
     temp.forEach((element2: any, i: number) =>
-      element1.key === element2.key ? indices.push(i) : null
+      element1.key === element2.key ? indices.push(i) : undefined
     );
   });
 
@@ -101,9 +107,11 @@ export async function mergeSort(
     temp[indices[i]] = element;
   });
 
-  await sleep(500);
+  await sleep(100);
 
-  await setSourceArray(temp);
+  globalArray = temp;
+
+  await setSourceArray(globalArray);
   // console.log(copy);
 }
 
