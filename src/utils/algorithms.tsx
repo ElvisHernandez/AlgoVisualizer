@@ -55,7 +55,8 @@ async function mergeHalves(
 export async function mergeSort(
   sourceArray: any,
   array: JSX.Element[],
-  setArray: any
+  setArray: any,
+  setSourceArray: any
 ) {
   const len = array.length;
   if (len === 1) return;
@@ -63,27 +64,64 @@ export async function mergeSort(
   let la = [];
   for (let i = 0; i < mid; i++) {
     la[i] = array[i];
-    await sleep(50);
-    animateArray(sourceArray, array, setArray, i, true);
+    // console.log(i);
+    // await sleep(50);
+    // await animateArray(sourceArray, array, setSourceArray, i, true);
   }
 
   let ra = [];
   for (let i = 0; i < len - mid; i++) {
-    console.log(i);
     ra[i] = array[i + mid];
-    await sleep(50);
-    animateArray(sourceArray, array, setArray, i + mid, false);
+    // console.log(i);
+    // await sleep(50);
+    // await animateArray(sourceArray, array, setSourceArray, i + mid, false);
   }
 
-  await mergeSort(sourceArray, la, setArray);
-  await mergeSort(sourceArray, ra, setArray);
+  await mergeSort(sourceArray, la, setArray, setSourceArray);
+  await mergeSort(sourceArray, ra, setArray, setSourceArray);
   const mergedArray = await mergeHalves(la, ra, setArray);
 
   for (let i = 0; i < len; i++) {
     array[i] = mergedArray[i];
   }
-  // await sleep(100);
-  // await setArray(array);
+
+  let temp = sourceArray.slice();
+
+  let indices: any = [];
+
+  array.forEach((element1) => {
+    temp.forEach((element2: any, i: number) =>
+      element1.key === element2.key ? indices.push(i) : null
+    );
+  });
+
+  indices.sort((a: number, b: number) => a - b);
+
+  array.forEach((element, i) => {
+    temp[indices[i]] = element;
+  });
+
+  await sleep(500);
+
+  await setSourceArray(temp);
+  // console.log(copy);
+}
+
+function swapPositions(element1: any, element2: any) {
+  return [
+    <ArrayElement
+      key={element1.key}
+      background={"teal"}
+      width="10px"
+      height={element1.props.height}
+    />,
+    <ArrayElement
+      key={element2.key}
+      background={"teal"}
+      width="10px"
+      height={element2.props.height}
+    />,
+  ];
 }
 
 function animateArray(
@@ -95,18 +133,15 @@ function animateArray(
 ) {
   setArray((prev: any) => {
     const next = [...prev];
-    const id = array[i].props.keyProp;
-    console.log("this is the id: ", id);
+    const id = array[i].key;
+    // console.log("this is the id: ", id);
 
-    const index = sourceArray.findIndex(
-      (jsxEl: any) => jsxEl.props.keyProp === id
-    );
+    const index = sourceArray.findIndex((jsxEl: any) => jsxEl.key === id);
 
-    console.log("this is the index: ", index);
+    // console.log("this is the index: ", index);
     next[index] = (
       <ArrayElement
-        key={next[index].props.keyProp}
-        keyProp={next[index].props.keyProp}
+        key={next[index].key}
         background={isLeft ? "#1eea51" : "#d85bff"}
         width="10px"
         height={next[index].props.height}
