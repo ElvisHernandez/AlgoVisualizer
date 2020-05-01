@@ -6,9 +6,7 @@ import { mergeSort, setGlobalArray } from "../../utils/algorithms";
 export interface ArrayElementsProps {}
 
 const ArrayElements: React.FC<ArrayElementsProps> = () => {
-  const [array, setArray] = useState<JSX.Element[]>([]);
   const [sourceArray, setSourceArray] = useState<JSX.Element[]>([]);
-  const [multiArray, setMultiArray] = useState<Array<JSX.Element[]>>([]);
 
   function makeArray(): void {
     const currentArray = [];
@@ -25,25 +23,13 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
       );
     }
 
-    setArray(currentArray);
     setSourceArray(currentArray);
   }
 
   function sortArray(): void {
-    const temp = sourceArray.slice();
-    // console.log(temp);
     setGlobalArray(sourceArray);
-    mergeSort(temp, array, setArray, setSourceArray);
-    // setSourceArray(temp);
+    mergeSort(sourceArray, setSourceArray);
   }
-
-  useEffect(() => {
-    console.log(multiArray);
-  }, [multiArray]);
-
-  // useEffect(() => {
-
-  // },[array])
 
   return (
     <>
@@ -52,19 +38,9 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
           <button onClick={makeArray}>Make Array</button>
           <button onClick={sortArray}>Sort Array</button>
         </div>
-        {/* {array.map((bar, index) => (
-        <ArrayElement
-          key={`${index}`}
-          background="teal"
-          width="5px"
-          height={bar + "px"}
-        />
-      ))} */}
+
         {sourceArray.map((bar) => bar)}
       </div>
-      {/* <div className={styles.bars}>
-        {multiArray.map((bars) => bars.map((bar) => bar))}
-      </div> */}
     </>
   );
 };

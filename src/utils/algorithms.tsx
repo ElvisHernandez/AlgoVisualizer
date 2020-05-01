@@ -23,9 +23,8 @@ function sleep(ms: number) {
 
 async function mergeHalves(
   la: JSX.Element[],
-  ra: JSX.Element[],
-  setArray: any
-) {
+  ra: JSX.Element[]
+): Promise<JSX.Element[]> {
   // await sleep(100);
   let mergedArray: JSX.Element[] = [];
   let [laI, raI, maI] = [0, 0, 0]; // left, right, and merged array indices
@@ -52,22 +51,20 @@ async function mergeHalves(
   return mergedArray;
 }
 
-let globalArray: any = [];
+let globalArray: JSX.Element[] = [];
 
-export function setGlobalArray(sourceArray: any) {
+export function setGlobalArray(sourceArray: JSX.Element[]): void {
   globalArray = sourceArray;
 }
 
 export async function mergeSort(
-  sourceArray: any,
   array: JSX.Element[],
-  setArray: any,
-  setSourceArray: any
-) {
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+): Promise<void> {
   const len = array.length;
   if (len === 1) return;
   const mid = Math.floor(len / 2);
-  let la = [];
+  let la: JSX.Element[] = [];
   for (let i = 0; i < mid; i++) {
     la[i] = array[i];
     // console.log(i);
@@ -75,7 +72,7 @@ export async function mergeSort(
     // await animateArray(sourceArray, array, setSourceArray, i, true);
   }
 
-  let ra = [];
+  let ra: JSX.Element[] = [];
   for (let i = 0; i < len - mid; i++) {
     ra[i] = array[i + mid];
     // console.log(i);
@@ -83,9 +80,9 @@ export async function mergeSort(
     // await animateArray(sourceArray, array, setSourceArray, i + mid, false);
   }
 
-  await mergeSort(sourceArray, la, setArray, setSourceArray);
-  await mergeSort(sourceArray, ra, setArray, setSourceArray);
-  const mergedArray = await mergeHalves(la, ra, setArray);
+  await mergeSort(la, setSourceArray);
+  await mergeSort(ra, setSourceArray);
+  const mergedArray = await mergeHalves(la, ra);
 
   for (let i = 0; i < len; i++) {
     array[i] = mergedArray[i];
