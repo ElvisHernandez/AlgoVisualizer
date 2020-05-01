@@ -58,26 +58,26 @@ export function setGlobalArray(sourceArray: JSX.Element[]): void {
 }
 
 export async function mergeSort(
-  array: JSX.Element[],
+  sourceArray: JSX.Element[],
   setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
 ): Promise<void> {
-  const len = array.length;
+  const len = sourceArray.length;
   if (len === 1) return;
   const mid = Math.floor(len / 2);
   let la: JSX.Element[] = [];
   for (let i = 0; i < mid; i++) {
-    la[i] = array[i];
+    la[i] = sourceArray[i];
     // console.log(i);
-    // await sleep(50);
-    // await animateArray(sourceArray, array, setSourceArray, i, true);
+    await sleep(10);
+    await animateArray(sourceArray, setSourceArray, i, true);
   }
 
   let ra: JSX.Element[] = [];
   for (let i = 0; i < len - mid; i++) {
-    ra[i] = array[i + mid];
+    ra[i] = sourceArray[i + mid];
     // console.log(i);
-    // await sleep(50);
-    // await animateArray(sourceArray, array, setSourceArray, i + mid, false);
+    await sleep(10);
+    await animateArray(sourceArray, setSourceArray, i + mid, false);
   }
 
   await mergeSort(la, setSourceArray);
@@ -85,14 +85,22 @@ export async function mergeSort(
   const mergedArray = await mergeHalves(la, ra);
 
   for (let i = 0; i < len; i++) {
-    array[i] = mergedArray[i];
+    sourceArray[i] = mergedArray[i];
   }
 
+  updateGlobal(sourceArray);
+
+  await sleep(100);
+  await setSourceArray(globalArray);
+  // console.log(copy);
+}
+
+function updateGlobal(sourceArray: JSX.Element[]): void {
   let temp = globalArray.slice();
 
   let indices: number[] = [];
 
-  array.forEach((element1) => {
+  sourceArray.forEach((element1) => {
     temp.forEach((element2: any, i: number) =>
       element1.key === element2.key ? indices.push(i) : undefined
     );
@@ -100,58 +108,35 @@ export async function mergeSort(
 
   indices.sort((a: number, b: number) => a - b);
 
-  array.forEach((element, i) => {
+  sourceArray.forEach((element, i) => {
     temp[indices[i]] = element;
   });
-
-  await sleep(100);
-
   globalArray = temp;
-
-  await setSourceArray(globalArray);
-  // console.log(copy);
-}
-
-function swapPositions(element1: any, element2: any) {
-  return [
-    <ArrayElement
-      key={element1.key}
-      background={"teal"}
-      width="10px"
-      height={element1.props.height}
-    />,
-    <ArrayElement
-      key={element2.key}
-      background={"teal"}
-      width="10px"
-      height={element2.props.height}
-    />,
-  ];
 }
 
 function animateArray(
-  sourceArray: any,
-  array: any,
-  setArray: any,
-  i: any,
+  sourceArray: JSX.Element[],
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
+  i: number,
   isLeft: boolean
 ) {
-  setArray((prev: any) => {
+  setSourceArray((prev: JSX.Element[]) => {
     const next = [...prev];
-    const id = array[i].key;
+    const id = sourceArray[i].key;
     // console.log("this is the id: ", id);
 
-    const index = sourceArray.findIndex((jsxEl: any) => jsxEl.key === id);
+    const index = globalArray.findIndex((jsxEl: any) => jsxEl.key === id);
 
     // console.log("this is the index: ", index);
     next[index] = (
       <ArrayElement
-        key={next[index].key}
+        key={next[index].key!}
         background={isLeft ? "#1eea51" : "#d85bff"}
         width="10px"
         height={next[index].props.height}
       />
     );
+    globalArray = next;
     return next;
   });
 }

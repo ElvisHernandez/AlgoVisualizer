@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
-import ArrayElement, { ArrayElementProps } from "../ArrayElement/ArrayElement";
+import ArrayElement from "../ArrayElement/ArrayElement";
 import { mergeSort, setGlobalArray } from "../../utils/algorithms";
 
 export interface ArrayElementsProps {}
@@ -22,7 +22,6 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
         />
       );
     }
-
     setSourceArray(currentArray);
   }
 
@@ -38,7 +37,6 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
           <button onClick={makeArray}>Make Array</button>
           <button onClick={sortArray}>Sort Array</button>
         </div>
-
         {sourceArray.map((bar) => bar)}
       </div>
     </>
