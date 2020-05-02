@@ -98,7 +98,7 @@ export async function mergeSort(
   for (let i = 0; i < mid; i++) {
     la[i] = sourceArray[i];
     // console.log(i);
-    await sleep(20);
+    await sleep(10);
     await animateArray(la[i], setSourceArray, color.GREEN);
   }
 
@@ -106,7 +106,7 @@ export async function mergeSort(
   for (let i = 0; i < len - mid; i++) {
     ra[i] = sourceArray[i + mid];
     // console.log(i);
-    await sleep(20);
+    await sleep(10);
     await animateArray(ra[i], setSourceArray, color.VIOLET);
   }
 
@@ -171,11 +171,11 @@ function animateArray(
       <ArrayElement
         key={next[index].key!}
         background={hex}
-        width="10px"
+        width="5px"
         height={next[index].props.height}
       />
     );
-    // globalArray = next;
+    globalArray = next;
     return next;
   });
 }

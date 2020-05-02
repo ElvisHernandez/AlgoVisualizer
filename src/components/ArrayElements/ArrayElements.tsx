@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
 import ArrayElement from "../ArrayElement/ArrayElement";
-import { mergeSort, setGlobalArray } from "../../utils/algorithms";
+import { mergeSort, setGlobalArray } from "../../utils/mergeSort";
 
 export interface ArrayElementsProps {}
 
@@ -12,12 +12,12 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
     const currentArray = [];
 
     for (let i = 0; i < 100; i++) {
-      const height = Math.floor(Math.random() * 691 + 10);
+      const height = Math.floor(Math.random() * 1091 + 1);
       currentArray.push(
         <ArrayElement
           key={i}
           background="teal"
-          width="10px"
+          width="5px"
           height={height + "px"}
         />
       );
@@ -31,15 +31,13 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
   }
 
   return (
-    <>
-      <div className={styles.bars}>
-        <div>
-          <button onClick={makeArray}>Make Array</button>
-          <button onClick={sortArray}>Sort Array</button>
-        </div>
-        {sourceArray.map((bar) => bar)}
+    <div className={styles.content}>
+      <div>
+        <button onClick={makeArray}>Make Array</button>
+        <button onClick={sortArray}>Sort Array</button>
       </div>
-    </>
+      <div className={styles.bars}>{sourceArray.map((bar) => bar)}</div>
+    </div>
   );
 };
 
