@@ -12,11 +12,11 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
     const currentArray = [];
 
     for (let i = 0; i < 100; i++) {
-      const height = Math.floor(Math.random() * 1091 + 1);
+      const height = Math.floor(Math.random() * 1091 + 5);
       currentArray.push(
         <ArrayElement
           key={i}
-          background="teal"
+          background="#00e5ff"
           width="5px"
           height={height + "px"}
         />
