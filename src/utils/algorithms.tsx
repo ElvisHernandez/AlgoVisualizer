@@ -21,12 +21,27 @@ function sleep(ms: number) {
 //   }
 // }
 
+// function testSort(): void {
+//   for (let i = 0; i < 1000; i++) {
+//     const array = makeArray(100);
+//     const copy1 = array.slice();
+//     const copy2 = array.slice();
+//     mergeSort(copy1);
+//     copy2.sort((a, b) => a - b);
+//     console.log(compareArrays(copy1, copy2));
+//   }
+// }
+enum color {
+  RED,
+  GREEN,
+  VIOLET,
+}
+
 async function mergeHalves(
   la: JSX.Element[],
   ra: JSX.Element[],
-  setSourceArray: any
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
 ): Promise<JSX.Element[]> {
-  // await sleep(100);
   let mergedArray: JSX.Element[] = [];
   let [laI, raI, maI] = [0, 0, 0]; // left, right, and merged array indices
   while (laI < la.length && raI < ra.length) {
@@ -37,27 +52,32 @@ async function mergeHalves(
       mergedArray[maI] = ra[raI];
       raI++;
     }
+    await animateArray(mergedArray[maI], setSourceArray, color.RED);
     maI++;
     await sleep(10);
-    await updateGlobal(mergedArray, setSourceArray);
-    await setSourceArray(globalArray);
+    updateGlobal(mergedArray);
+    setSourceArray(globalArray);
   }
   while (laI < la.length) {
     mergedArray[maI] = la[laI];
     laI++;
+    await animateArray(mergedArray[maI], setSourceArray, color.RED);
     maI++;
     await sleep(10);
-    await updateGlobal(mergedArray, setSourceArray);
-    await setSourceArray(globalArray);
+    updateGlobal(mergedArray);
+
+    setSourceArray(globalArray);
   }
   while (raI < ra.length) {
     mergedArray[maI] = ra[raI];
     raI++;
+    await animateArray(mergedArray[maI], setSourceArray, color.RED);
     maI++;
     await sleep(10);
-    await updateGlobal(mergedArray, setSourceArray);
-    await setSourceArray(globalArray);
+    updateGlobal(mergedArray);
+    setSourceArray(globalArray);
   }
+  // animateMergedArray(mergedArray)
   return mergedArray;
 }
 
@@ -79,7 +99,7 @@ export async function mergeSort(
     la[i] = sourceArray[i];
     // console.log(i);
     await sleep(20);
-    await animateArray(sourceArray, setSourceArray, i, true);
+    await animateArray(la[i], setSourceArray, color.GREEN);
   }
 
   let ra: JSX.Element[] = [];
@@ -87,7 +107,7 @@ export async function mergeSort(
     ra[i] = sourceArray[i + mid];
     // console.log(i);
     await sleep(20);
-    await animateArray(sourceArray, setSourceArray, i + mid, false);
+    await animateArray(ra[i], setSourceArray, color.VIOLET);
   }
 
   await mergeSort(la, setSourceArray);
@@ -96,19 +116,11 @@ export async function mergeSort(
 
   for (let i = 0; i < len; i++) {
     sourceArray[i] = mergedArray[i];
+    // await animateArray(mergedArray[i], setSourceArray, color.RED);
   }
-
-  // updateGlobal(sourceArray, setSourceArray);
-
-  // await sleep(300);
-  // await setSourceArray(globalArray);
-  // console.log(copy);
 }
 
-async function updateGlobal(
-  sourceArray: JSX.Element[],
-  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
-): Promise<void> {
+async function updateGlobal(sourceArray: JSX.Element[]): Promise<void> {
   let temp = globalArray.slice();
   let sourceObject: any = {};
 
@@ -127,35 +139,43 @@ async function updateGlobal(
   for (let i = 0; i < sourceArray.length; i++) {
     temp[indices[i]] = sourceArray[i];
   }
-
   globalArray = temp;
-  // await sleep(200);
-  // await setSourceArray(temp);
 }
 
 function animateArray(
-  sourceArray: JSX.Element[],
+  sourceArray: JSX.Element,
   setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
-  i: number,
-  isLeft: boolean
+  colorCode: color
 ) {
   setSourceArray((prev: JSX.Element[]) => {
     const next = [...prev];
-    const id = sourceArray[i].key;
-    // console.log("this is the id: ", id);
-
+    const id = sourceArray.key;
     const index = globalArray.findIndex((jsxEl: any) => jsxEl.key === id);
+    let hex;
 
-    // console.log("this is the index: ", index);
+    switch (colorCode) {
+      case color.RED:
+        hex = "#f95977";
+        break;
+      case color.GREEN:
+        hex = "#1eea51";
+        break;
+      case color.VIOLET:
+        hex = "#d85bff";
+        break;
+      default:
+        hex = "blue";
+    }
+
     next[index] = (
       <ArrayElement
         key={next[index].key!}
-        background={isLeft ? "#1eea51" : "#d85bff"}
+        background={hex}
         width="10px"
         height={next[index].props.height}
       />
     );
-    globalArray = next;
+    // globalArray = next;
     return next;
   });
 }
