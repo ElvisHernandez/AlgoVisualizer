@@ -8,9 +8,12 @@ export interface ArrayElementsProps {}
 const ArrayElements: React.FC<ArrayElementsProps> = () => {
   const [sourceArray, setSourceArray] = useState<JSX.Element[]>([]);
 
+  useEffect(() => {
+    makeArray();
+  }, []);
+
   function makeArray(): void {
     const currentArray = [];
-
     for (let i = 0; i < 100; i++) {
       const height = Math.floor(Math.random() * 1091 + 5);
       currentArray.push(
