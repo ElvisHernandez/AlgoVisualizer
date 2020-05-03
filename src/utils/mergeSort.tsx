@@ -65,7 +65,6 @@ async function mergeHalves(
     maI++;
     await sleep(10);
     updateGlobal(mergedArray);
-
     setSourceArray(globalArray);
   }
   while (raI < ra.length) {
@@ -77,7 +76,6 @@ async function mergeHalves(
     updateGlobal(mergedArray);
     setSourceArray(globalArray);
   }
-  // animateMergedArray(mergedArray)
   return mergedArray;
 }
 
@@ -97,7 +95,6 @@ export async function mergeSort(
   let la: JSX.Element[] = [];
   for (let i = 0; i < mid; i++) {
     la[i] = sourceArray[i];
-    // console.log(i);
     await sleep(10);
     await animateArray(la[i], setSourceArray, color.GREEN);
   }
@@ -105,7 +102,6 @@ export async function mergeSort(
   let ra: JSX.Element[] = [];
   for (let i = 0; i < len - mid; i++) {
     ra[i] = sourceArray[i + mid];
-    // console.log(i);
     await sleep(10);
     await animateArray(ra[i], setSourceArray, color.VIOLET);
   }
@@ -116,7 +112,6 @@ export async function mergeSort(
 
   for (let i = 0; i < len; i++) {
     sourceArray[i] = mergedArray[i];
-    // await animateArray(mergedArray[i], setSourceArray, color.RED);
   }
 }
 
@@ -194,6 +189,5 @@ export function compareArrays(array1: number[], array2: number[]): boolean {
 function jsxComparator(element1: JSX.Element, element2: JSX.Element): boolean {
   const height1: number = +Object.values(element1)[4].height.slice(0, -2);
   const height2: number = +Object.values(element2)[4].height.slice(0, -2);
-
   return height1 - height2 < 0 ? true : false;
 }
