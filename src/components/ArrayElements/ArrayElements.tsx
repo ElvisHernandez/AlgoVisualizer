@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
 import ArrayElement from "../ArrayElement/ArrayElement";
-import { mergeSort, setGlobalArray } from "../../utils/mergeSort/mergeSort";
+import {
+  mergeSort,
+  setGlobalMergeSortArray,
+} from "../../utils/mergeSort/mergeSort";
 
 export interface ArrayElementsProps {}
 
@@ -29,7 +32,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
   }
 
   function sortArray(): void {
-    setGlobalArray(sourceArray);
+    setGlobalMergeSortArray(sourceArray);
     mergeSort(sourceArray, setSourceArray);
   }
 
