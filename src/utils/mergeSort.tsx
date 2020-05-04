@@ -1,8 +1,6 @@
 import React from "react";
 
-import ArrayElement, {
-  ArrayElementProps,
-} from "../components/ArrayElement/ArrayElement";
+import ArrayElement from "../components/ArrayElement/ArrayElement";
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
