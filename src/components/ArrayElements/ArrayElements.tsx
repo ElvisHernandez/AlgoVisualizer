@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
 import ArrayElement from "../ArrayElement/ArrayElement";
-import { mergeSort, setGlobalArray } from "../../utils/mergeSort";
+import { mergeSort, setGlobalArray } from "../../utils/mergeSort/mergeSort";
 
 export interface ArrayElementsProps {}
 
