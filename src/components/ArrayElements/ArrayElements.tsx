@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
-import ArrayElement from "../ArrayElement/ArrayElement";
 import { makeJSXArray } from "../../utils/helpers";
 import {
   mergeSort,

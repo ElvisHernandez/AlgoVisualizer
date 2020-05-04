@@ -1,5 +1,4 @@
 import React from "react";
-import ArrayElement from "../../components/ArrayElement/ArrayElement";
 import {
   jsxComparator,
   animateArray,
