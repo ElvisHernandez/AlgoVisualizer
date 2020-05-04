@@ -24,7 +24,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "eject": "react-scripts eject",
-    "netlify:deploy": "netlify deploy --prod --dir build-dir"
+    "netlify:deploy": "netlify deploy --dir=./build -p"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -44,9 +44,9 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ],
-    "devDependencies": {
-      "netlify-cli": "^2.47.0"
-    }
+    ]
+  },
+  "devDependencies": {
+    "netlify-cli": "^2.48.0"
   }
 }
