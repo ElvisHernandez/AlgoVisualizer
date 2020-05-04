@@ -1,5 +1,4 @@
 import React from "react";
-
 import ArrayElement from "../../components/ArrayElement/ArrayElement";
 import {
   jsxComparator,
@@ -79,6 +78,7 @@ export async function mergeSort(
   const len = sourceArray.length;
   if (len === 1) return;
   const mid = Math.floor(len / 2);
+
   let la: JSX.Element[] = [];
   for (let i = 0; i < mid; i++) {
     la[i] = sourceArray[i];
