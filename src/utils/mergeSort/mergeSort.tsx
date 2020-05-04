@@ -5,7 +5,7 @@ import {
   sleep,
   updateGlobal,
   color,
-} from "../helpers";
+} from "../helpers/helpers";
 
 let globalMergeSortArray: JSX.Element[] = [];
 
@@ -21,7 +21,7 @@ async function mergeHalves(
   let mergedArray: JSX.Element[] = [];
   let [laI, raI, maI] = [0, 0, 0]; // left, right, and merged array indices
   while (laI < la.length && raI < ra.length) {
-    if (jsxComparator(la[laI], ra[raI])) {
+    if (jsxComparator(la[laI], ra[raI]) < 0) {
       mergedArray[maI] = la[laI];
       laI++;
     } else {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import ArrayElement from "../components/ArrayElement/ArrayElement";
+import ArrayElement from "../../components/ArrayElement/ArrayElement";
 
 export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -11,29 +11,10 @@ export enum color {
   VIOLET,
 }
 
-export function makeJSXArray(
-  divCount: number,
-  heightRange: number
-): JSX.Element[] {
-  const currentArray = [];
-  for (let i = 0; i < divCount; i++) {
-    const height = Math.floor(Math.random() * heightRange + 5);
-    currentArray.push(
-      <ArrayElement
-        key={i}
-        background="#00e5ff"
-        width="5px"
-        height={height + "px"}
-      />
-    );
-  }
-  return currentArray;
-}
 export async function updateGlobal(
   globalArray: JSX.Element[],
   sourceArray: JSX.Element[]
 ): Promise<void> {
-  //   let temp = globalArray.slice();
   let sourceObject: any = {};
 
   sourceArray.forEach((el) => {
@@ -51,7 +32,6 @@ export async function updateGlobal(
   for (let i = 0; i < sourceArray.length; i++) {
     globalArray[indices[i]] = sourceArray[i];
   }
-  //   globalArray = temp;
 }
 
 export function animateArray(
@@ -96,13 +76,36 @@ export function animateArray(
   });
 }
 
-export function compareArrays(array1: number[], array2: number[]): boolean {
+export function makeJSXArray(
+  divCount: number,
+  heightRange: number
+): JSX.Element[] {
+  const currentArray: JSX.Element[] = [];
+  for (let i = 0; i < divCount; i++) {
+    const height = Math.floor(Math.random() * heightRange + 5);
+    currentArray.push(
+      <ArrayElement
+        key={i}
+        background="#00e5ff"
+        width="5px"
+        height={height + "px"}
+      />
+    );
+  }
+  return currentArray;
+}
+
+// functions for comparing and testing elements to be sorted
+export function compareArrays(
+  array1: JSX.Element[],
+  array2: JSX.Element[]
+): boolean {
   const len1 = array1.length;
   const len2 = array2.length;
   if (len1 !== len2) return false;
 
   for (let i = 0; i < len1; i++) {
-    if (array1[i] !== array2[i]) return false;
+    if (jsxComparator(array1[i], array2[i]) !== 0) return false;
   }
   return true;
 }
@@ -110,21 +113,27 @@ export function compareArrays(array1: number[], array2: number[]): boolean {
 export function jsxComparator(
   element1: JSX.Element,
   element2: JSX.Element
-): boolean {
+): number {
   const height1: number = +Object.values(element1)[4].height.slice(0, -2);
   const height2: number = +Object.values(element2)[4].height.slice(0, -2);
-  return height1 - height2 < 0 ? true : false;
+  const diff = height1 - height2;
+  return diff;
 }
 
-// export function testSort(): void {
-//   for (let i = 0; i < 1000; i++) {
-// const array = makeArray(100);
-// const copy1 = array.slice();
-// const copy2 = array.slice();
-//
-// mergeSort(copy1);
-// copy2.sort((a, b) => a - b);
-//
-// console.log(compareArrays(copy1, copy2));
-//   }
-// }
+export function testSort(
+  sortingFunction: (array: JSX.Element[]) => void
+): boolean {
+  const isEqualArray: boolean[] = [];
+  for (let i = 0; i < 1000; i++) {
+    const array: JSX.Element[] = makeJSXArray(100, 1091);
+    const copy1 = array.slice();
+    const copy2 = array.slice();
+
+    sortingFunction(copy1);
+    copy2.sort((a, b) => jsxComparator(a, b));
+    const isEqual = compareArrays(copy1, copy2);
+    isEqualArray.push(isEqual);
+  }
+  if (isEqualArray.includes(false)) return false;
+  else return true;
+}
