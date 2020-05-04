@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
-import ArrayElement from "../ArrayElement/ArrayElement";
-import { mergeSort, setGlobalArray } from "../../utils/mergeSort";
+import { makeJSXArray } from "../../utils/helpers";
+import {
+  mergeSort,
+  setGlobalMergeSortArray,
+} from "../../utils/mergeSort/mergeSort";
 
 export interface ArrayElementsProps {}
 
@@ -12,24 +15,13 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
     makeArray();
   }, []);
 
-  function makeArray(): void {
-    const currentArray = [];
-    for (let i = 0; i < 100; i++) {
-      const height = Math.floor(Math.random() * 1091 + 5);
-      currentArray.push(
-        <ArrayElement
-          key={i}
-          background="#00e5ff"
-          width="5px"
-          height={height + "px"}
-        />
-      );
-    }
+  function makeArray() {
+    const currentArray = makeJSXArray(100, 1091);
     setSourceArray(currentArray);
   }
 
   function sortArray(): void {
-    setGlobalArray(sourceArray);
+    setGlobalMergeSortArray(sourceArray);
     mergeSort(sourceArray, setSourceArray);
   }
 
