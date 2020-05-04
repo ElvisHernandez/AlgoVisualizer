@@ -114,8 +114,8 @@ export function jsxComparator(
   element1: JSX.Element,
   element2: JSX.Element
 ): number {
-  const height1: number = +Object.values(element1)[4].height.slice(0, -2);
-  const height2: number = +Object.values(element2)[4].height.slice(0, -2);
+  const height1: number = +element1.props.height.slice(0, -2);
+  const height2: number = +element2.props.height.slice(0, -2);
   const diff = height1 - height2;
   return diff;
 }

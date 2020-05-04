@@ -1,14 +1,15 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { jsxComparator, makeJSXArray } from "../helpers";
+import { jsxComparator, makeJSXArray, compareArrays } from "../helpers";
 import ArrayElement from "../../../components/ArrayElement/ArrayElement";
 
-describe("Test jsxComparator function successfully compares  ArrayElement components based on height", () => {
-  const defaultProps = {
-    background: "black",
-    width: "2px",
-  };
+const defaultProps = {
+  background: "black",
+  width: "2px",
+};
 
+describe("Test jsxComparator function", () => {
+  // jsxComparator compares ArrayElement components based their height attribute
   test("Validate jsxComparator successfully determines smaller elements", () => {
     const shorterElement = <ArrayElement {...defaultProps} height="10px" />;
     const tallerElement = <ArrayElement {...defaultProps} height="21px" />;
@@ -53,5 +54,32 @@ describe("Test makeJSXArray function", () => {
       expect(height).toBeGreaterThanOrEqual(5);
       expect(height).toBeLessThanOrEqual(heightRange + 5);
     }
+  });
+});
+
+describe("Testing compareArrays function", () => {
+  const element1 = <ArrayElement {...defaultProps} height="10px" />;
+  const element2 = <ArrayElement {...defaultProps} height="20px" />;
+  const element3 = <ArrayElement {...defaultProps} height="30px" />;
+
+  test("should return true for two ArrayElement arrays that contain same elements in same order", () => {
+    const array1 = [element1, element2, element3];
+    const array2 = [element1, element2, element3];
+    const areEqual = compareArrays(array1, array2);
+    expect(areEqual).toEqual(true);
+  });
+
+  test("should return false for two different arrays", () => {
+    const array1 = [element1, element2, element3];
+    const array2 = [element1, element3, element2];
+    const areEqual = compareArrays(array1, array2);
+    expect(areEqual).toEqual(false);
+  });
+
+  test("should return false for arrays of different lengths", () => {
+    const array1 = [element1, element2];
+    const array2 = [element1, element2, element3];
+    const areEqual = compareArrays(array1, array2);
+    expect(areEqual).toEqual(false);
   });
 });
