@@ -11,7 +11,10 @@ export enum color {
   VIOLET,
 }
 
-function makeJSXArray(divCount: number, heightRange: number): JSX.Element[] {
+export function makeJSXArray(
+  divCount: number,
+  heightRange: number
+): JSX.Element[] {
   const currentArray = [];
   for (let i = 0; i < divCount; i++) {
     const height = Math.floor(Math.random() * heightRange + 5);
