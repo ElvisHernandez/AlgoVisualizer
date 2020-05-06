@@ -15,13 +15,9 @@ jobs:
     executor:
       name: node/default
     steps:
-      - node/with-cache:
-          steps:
-            - checkout
-            - restore_cache:
-                key: dependency-cache-{{ checksum "package-lock.json" }}
-            - run: npm run build
-            - run: npm run netlify:deploy
+      - checkout
+      - run: npm run build
+      - run: npm run netlify:deploy
 workflows:
   build-and-test:
     jobs:
