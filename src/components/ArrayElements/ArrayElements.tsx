@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
-import { makeJSXArray } from "../../utils/helpers";
+import { makeJSXArray } from "../../utils/helpers/helpers";
 import {
   mergeSort,
   setGlobalMergeSortArray,

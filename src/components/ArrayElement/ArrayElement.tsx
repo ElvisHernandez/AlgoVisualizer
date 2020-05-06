@@ -18,7 +18,7 @@ const ArrayElement: React.FC<ArrayElementProps> = ({
     height: height,
     marginRight: "2px",
   };
-  return <div style={style}></div>;
+  return <div data-testid="array-element" style={style}></div>;
 };
 
 export default ArrayElement;
