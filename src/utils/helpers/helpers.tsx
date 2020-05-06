@@ -121,21 +121,3 @@ export function jsxComparator(
   const diff = height1 - height2;
   return diff;
 }
-
-export function testSort(
-  sortingFunction: (array: JSX.Element[]) => void
-): boolean {
-  const isEqualArray: boolean[] = [];
-  for (let i = 0; i < 1000; i++) {
-    const array: JSX.Element[] = makeJSXArray(100, 1091);
-    const copy1 = array.slice();
-    const copy2 = array.slice();
-
-    sortingFunction(copy1);
-    copy2.sort((a, b) => jsxComparator(a, b));
-    const isEqual = compareArrays(copy1, copy2);
-    isEqualArray.push(isEqual);
-  }
-  if (isEqualArray.includes(false)) return false;
-  else return true;
-}

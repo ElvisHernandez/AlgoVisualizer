@@ -13,7 +13,7 @@ export function setGlobalMergeSortArray(sourceArray: JSX.Element[]): void {
   globalMergeSortArray = sourceArray;
 }
 
-async function mergeHalves(
+export async function mergeHalves(
   la: JSX.Element[],
   ra: JSX.Element[],
   setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
