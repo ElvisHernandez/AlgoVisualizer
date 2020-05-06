@@ -18,7 +18,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "eject": "react-scripts eject",
-    "netlify:deploy": "netlify deploy --dir=./build -p"
+    "netlify:deploy": "netlify deploy --dir=./build -p -m \"$(git log -1 --pretty=%B)\""
   },
   "eslintConfig": {
     "extends": "react-app",
