@@ -21,20 +21,20 @@ jobs:
             - run: npm run netlify:deploy
 workflows:
   test:
-    filters:
-      branches:
-        ignore:
-          - master
     jobs:
       - test
+        filters:
+          branches:
+            ignore:
+              - master
 
   build-and-test:
-    filters:
-      branches:
-        only:
-          - master
     jobs:
       - test
       - build:
           requires:
             - test
+        filters:
+          branches:
+            only:
+              - master
