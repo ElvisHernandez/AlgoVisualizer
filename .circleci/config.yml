@@ -2,18 +2,38 @@ version: 2.1
 orbs:
   node: circleci/node@1.1.6
 jobs:
-  build-and-test:
+  test:
     executor:
       name: node/default
     steps:
       - checkout
+      - steps:
+        - run: npm install
+        - run: npm test
+  build: 
+    executor:
+      name: node/default
+    steps:
       - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
-            - run: npm run build
-            - run: npm run netlify:deploy
+        steps:
+          - run: npm run build
+          - run: npm run netlify:deploy
 workflows:
-  build-and-test:
+  test:
+    filters:
+      branches:
+        ignore:
+          - master
     jobs:
-      - build-and-test
+      - test
+
+  build-and-test:
+    filters:
+      branches:
+        only:
+          - master
+    jobs:
+      - test
+      - build
+        requires:
+          - test
