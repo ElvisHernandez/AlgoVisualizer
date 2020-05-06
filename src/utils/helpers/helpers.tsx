@@ -36,14 +36,16 @@ export async function updateGlobal(
 
 export function animateArray(
   globalArray: JSX.Element[],
-  sourceArray: JSX.Element,
+  target: JSX.Element,
   setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
   colorCode: color
-) {
+): void {
   setSourceArray((prev: JSX.Element[]) => {
     const next = [...prev];
-    const id = sourceArray.key;
-    const index = globalArray.findIndex((jsxEl: any) => jsxEl.key === id);
+    const id = target.key;
+    const index = globalArray.findIndex(
+      (jsxEl: JSX.Element) => jsxEl.key === id
+    );
     let hex;
 
     switch (colorCode) {

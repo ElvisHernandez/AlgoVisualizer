@@ -28,7 +28,7 @@ async function mergeHalves(
       mergedArray[maI] = ra[raI];
       raI++;
     }
-    await animateArray(
+    animateArray(
       globalMergeSortArray,
       mergedArray[maI],
       setSourceArray,
@@ -42,7 +42,7 @@ async function mergeHalves(
   while (laI < la.length) {
     mergedArray[maI] = la[laI];
     laI++;
-    await animateArray(
+    animateArray(
       globalMergeSortArray,
       mergedArray[maI],
       setSourceArray,
@@ -56,7 +56,7 @@ async function mergeHalves(
   while (raI < ra.length) {
     mergedArray[maI] = ra[raI];
     raI++;
-    await animateArray(
+    animateArray(
       globalMergeSortArray,
       mergedArray[maI],
       setSourceArray,
@@ -82,24 +82,14 @@ export async function mergeSort(
   for (let i = 0; i < mid; i++) {
     la[i] = sourceArray[i];
     await sleep(10);
-    await animateArray(
-      globalMergeSortArray,
-      la[i],
-      setSourceArray,
-      color.GREEN
-    );
+    animateArray(globalMergeSortArray, la[i], setSourceArray, color.GREEN);
   }
 
   let ra: JSX.Element[] = [];
   for (let i = 0; i < len - mid; i++) {
     ra[i] = sourceArray[i + mid];
     await sleep(10);
-    await animateArray(
-      globalMergeSortArray,
-      ra[i],
-      setSourceArray,
-      color.VIOLET
-    );
+    animateArray(globalMergeSortArray, ra[i], setSourceArray, color.VIOLET);
   }
 
   await mergeSort(la, setSourceArray);

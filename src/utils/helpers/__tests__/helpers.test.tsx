@@ -1,7 +1,13 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { jsxComparator, makeJSXArray, compareArrays } from "../helpers";
 import ArrayElement from "../../../components/ArrayElement/ArrayElement";
+import {
+  jsxComparator,
+  makeJSXArray,
+  compareArrays,
+  animateArray,
+  color,
+} from "../helpers";
 
 const defaultProps = {
   background: "black",
@@ -34,7 +40,7 @@ describe("Test jsxComparator function", () => {
 
 describe("Test makeJSXArray function", () => {
   test("should return a JSX.Element Array of length equal to its divCount argument", () => {
-    const jsxArray = makeJSXArray(56, 100);
+    const jsxArray: JSX.Element[] = makeJSXArray(56, 100);
     expect(jsxArray).toHaveLength(56);
   });
 
@@ -63,23 +69,41 @@ describe("Testing compareArrays function", () => {
   const element3 = <ArrayElement {...defaultProps} height="30px" />;
 
   test("should return true for two ArrayElement arrays that contain same elements in same order", () => {
-    const array1 = [element1, element2, element3];
-    const array2 = [element1, element2, element3];
+    const array1: JSX.Element[] = [element1, element2, element3];
+    const array2: JSX.Element[] = [element1, element2, element3];
     const areEqual = compareArrays(array1, array2);
     expect(areEqual).toEqual(true);
   });
 
   test("should return false for two different arrays", () => {
-    const array1 = [element1, element2, element3];
-    const array2 = [element1, element3, element2];
+    const array1: JSX.Element[] = [element1, element2, element3];
+    const array2: JSX.Element[] = [element1, element3, element2];
     const areEqual = compareArrays(array1, array2);
     expect(areEqual).toEqual(false);
   });
 
   test("should return false for arrays of different lengths", () => {
-    const array1 = [element1, element2];
-    const array2 = [element1, element2, element3];
+    const array1: JSX.Element[] = [element1, element2];
+    const array2: JSX.Element[] = [element1, element2, element3];
     const areEqual = compareArrays(array1, array2);
     expect(areEqual).toEqual(false);
   });
+});
+
+describe("Test animateArray function", () => {
+  const element1 = <ArrayElement {...defaultProps} height="10px" />;
+  const element2 = <ArrayElement {...defaultProps} height="20px" />;
+  const globalArray: JSX.Element[] = [element1, element2];
+
+  test("The animateArray function should call setSourceArray once", () => {
+    const setSourceArray = jest.fn();
+    animateArray(globalArray, element1, setSourceArray, color.RED);
+    expect(setSourceArray).toHaveBeenCalledTimes(1);
+    setSourceArray.mockReset();
+  });
+
+  // test("another one", () => {
+  //   const setSourceMock = jest.spyOn();
+  //   animateArray(globalArray, element1, setSourceArray, color.RED);
+  // });
 });
