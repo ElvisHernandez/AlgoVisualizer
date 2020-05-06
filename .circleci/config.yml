@@ -17,6 +17,7 @@ jobs:
     steps:
       - node/with-cache:
           steps:
+            - checkout
             - run: npm run build
             - run: npm run netlify:deploy
 workflows:
