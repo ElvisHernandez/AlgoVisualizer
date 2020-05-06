@@ -6,18 +6,20 @@ import {
   makeJSXArray,
   compareArrays,
   animateArray,
+  updateGlobal,
   color,
 } from "../helpers";
 
 const defaultProps = {
   background: "black",
   width: "2px",
+  height: "10px",
 };
 
 describe("Test jsxComparator function", () => {
   // jsxComparator compares ArrayElement components based their height attribute
   test("Validate jsxComparator successfully determines smaller elements", () => {
-    const shorterElement = <ArrayElement {...defaultProps} height="10px" />;
+    const shorterElement = <ArrayElement {...defaultProps} />;
     const tallerElement = <ArrayElement {...defaultProps} height="21px" />;
     const comparison = jsxComparator(shorterElement, tallerElement);
     expect(comparison).toBeLessThan(0);
@@ -31,8 +33,8 @@ describe("Test jsxComparator function", () => {
   });
 
   test("Validate jsxComparator successfully determines equal elements", () => {
-    const element1 = <ArrayElement {...defaultProps} height="350px" />;
-    const element2 = <ArrayElement {...defaultProps} height="350px" />;
+    const element1 = <ArrayElement {...defaultProps} />;
+    const element2 = <ArrayElement {...defaultProps} />;
     const comparison = jsxComparator(element1, element2);
     expect(comparison).toEqual(0);
   });
@@ -64,7 +66,7 @@ describe("Test makeJSXArray function", () => {
 });
 
 describe("Testing compareArrays function", () => {
-  const element1 = <ArrayElement {...defaultProps} height="10px" />;
+  const element1 = <ArrayElement {...defaultProps} />;
   const element2 = <ArrayElement {...defaultProps} height="20px" />;
   const element3 = <ArrayElement {...defaultProps} height="30px" />;
 
@@ -91,19 +93,40 @@ describe("Testing compareArrays function", () => {
 });
 
 describe("Test animateArray function", () => {
-  const element1 = <ArrayElement {...defaultProps} height="10px" />;
+  const element1 = <ArrayElement {...defaultProps} />;
   const element2 = <ArrayElement {...defaultProps} height="20px" />;
   const globalArray: JSX.Element[] = [element1, element2];
 
+  // this function uses the useState hook in ArrayElements component
+  // hence the minimal tests on it
   test("The animateArray function should call setSourceArray once", () => {
     const setSourceArray = jest.fn();
     animateArray(globalArray, element1, setSourceArray, color.RED);
     expect(setSourceArray).toHaveBeenCalledTimes(1);
     setSourceArray.mockReset();
   });
+});
 
-  // test("another one", () => {
-  //   const setSourceMock = jest.spyOn();
-  //   animateArray(globalArray, element1, setSourceArray, color.RED);
-  // });
+describe("Test updateGlobal function", () => {
+  // this function depends on the ArrayElement component having an indexed key property
+  const element1 = <ArrayElement key={1} {...defaultProps} />;
+  const element2 = <ArrayElement key={2} {...defaultProps} height="20px" />;
+  const element3 = <ArrayElement key={3} {...defaultProps} height="30px" />;
+
+  test("globalArray input should remain the same length", () => {
+    const globalArray: JSX.Element[] = [element2, element1, element3];
+    const sourceArray: JSX.Element[] = [element1, element2];
+    const lengthBefore = globalArray.length;
+    updateGlobal(globalArray, sourceArray);
+    expect(globalArray).toHaveLength(lengthBefore);
+  });
+
+  test("should order the globalArray elements in the same relative order of sourceArray", () => {
+    const globalArray: JSX.Element[] = [element3, element2, element1];
+    const sourceArray: JSX.Element[] = [element1, element2];
+    updateGlobal(globalArray, sourceArray);
+    const subGlobalArray = globalArray.slice(1, sourceArray.length + 1);
+    const areEqual = compareArrays(subGlobalArray, sourceArray);
+    expect(areEqual).toEqual(true);
+  });
 });
