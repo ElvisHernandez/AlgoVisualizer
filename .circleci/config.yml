@@ -7,22 +7,28 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
-  build:
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: npm install
+      - run: npm test
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+  build-and-deploy:
     executor:
       name: node/default
     steps:
       - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run: npm run build
       - run: npm run netlify:deploy
 workflows:
   build-and-test:
     jobs:
       - test
-      - build:
+      - build-and-deploy:
           requires:
             - test
           filters:
