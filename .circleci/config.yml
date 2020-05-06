@@ -7,17 +7,16 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - steps:
-        - run: npm install
-        - run: npm test
-  build: 
+      - run: npm install
+      - run: npm test
+  build:
     executor:
       name: node/default
     steps:
       - node/with-cache:
-        steps:
-          - run: npm run build
-          - run: npm run netlify:deploy
+          steps:
+            - run: npm run build
+            - run: npm run netlify:deploy
 workflows:
   test:
     filters:
@@ -34,6 +33,6 @@ workflows:
           - master
     jobs:
       - test
-      - build
+      - build:
           requires:
             - test
