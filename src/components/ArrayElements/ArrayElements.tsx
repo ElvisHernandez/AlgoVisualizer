@@ -26,7 +26,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
   }
 
   return (
-    <div className={styles.content}>
+    <div data-testid="array-elements" className={styles.content}>
       <div>
         <button onClick={makeArray}>Make Array</button>
         <button onClick={sortArray}>Sort Array</button>
