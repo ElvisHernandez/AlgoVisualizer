@@ -16,7 +16,8 @@ export function setGlobalMergeSortArray(sourceArray: JSX.Element[]): void {
 export async function mergeHalves(
   la: JSX.Element[],
   ra: JSX.Element[],
-  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
+  delay: number
 ): Promise<JSX.Element[]> {
   let mergedArray: JSX.Element[] = [];
   let [laI, raI, maI] = [0, 0, 0]; // left, right, and merged array indices
@@ -35,7 +36,7 @@ export async function mergeHalves(
       color.RED
     );
     maI++;
-    await sleep(10);
+    await sleep(delay);
     updateGlobal(globalMergeSortArray, mergedArray);
     setSourceArray(globalMergeSortArray);
   }
@@ -49,7 +50,7 @@ export async function mergeHalves(
       color.RED
     );
     maI++;
-    await sleep(10);
+    await sleep(delay);
     updateGlobal(globalMergeSortArray, mergedArray);
     setSourceArray(globalMergeSortArray);
   }
@@ -63,7 +64,7 @@ export async function mergeHalves(
       color.RED
     );
     maI++;
-    await sleep(10);
+    await sleep(delay);
     updateGlobal(globalMergeSortArray, mergedArray);
     setSourceArray(globalMergeSortArray);
   }
@@ -72,7 +73,8 @@ export async function mergeHalves(
 
 export async function mergeSort(
   sourceArray: JSX.Element[],
-  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
+  delay: number
 ): Promise<void> {
   const len = sourceArray.length;
   if (len === 1) return;
@@ -81,22 +83,29 @@ export async function mergeSort(
   let la: JSX.Element[] = [];
   for (let i = 0; i < mid; i++) {
     la[i] = sourceArray[i];
-    await sleep(10);
+    await sleep(delay);
     animateArray(globalMergeSortArray, la[i], setSourceArray, color.GREEN);
   }
 
   let ra: JSX.Element[] = [];
   for (let i = 0; i < len - mid; i++) {
     ra[i] = sourceArray[i + mid];
-    await sleep(10);
+    await sleep(delay);
     animateArray(globalMergeSortArray, ra[i], setSourceArray, color.VIOLET);
   }
 
-  await mergeSort(la, setSourceArray);
-  await mergeSort(ra, setSourceArray);
-  const mergedArray = await mergeHalves(la, ra, setSourceArray);
+  await mergeSort(la, setSourceArray, delay);
+  await mergeSort(ra, setSourceArray, delay);
+  const mergedArray = await mergeHalves(la, ra, setSourceArray, delay);
 
   for (let i = 0; i < len; i++) {
     sourceArray[i] = mergedArray[i];
+  }
+
+  if (len === globalMergeSortArray.length) {
+    const div: HTMLElement = document.createElement("div");
+    div.setAttribute("data-testid", "done-sorting");
+    div.hidden = true;
+    document.body.appendChild(div);
   }
 }

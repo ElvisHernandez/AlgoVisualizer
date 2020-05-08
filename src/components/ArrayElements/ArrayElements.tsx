@@ -22,11 +22,11 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
 
   function sortArray(): void {
     setGlobalMergeSortArray(sourceArray);
-    mergeSort(sourceArray, setSourceArray);
+    mergeSort(sourceArray, setSourceArray, 0);
   }
 
   return (
-    <div className={styles.content}>
+    <div data-testid="array-elements" className={styles.content}>
       <div>
         <button onClick={makeArray}>Make Array</button>
         <button onClick={sortArray}>Sort Array</button>
