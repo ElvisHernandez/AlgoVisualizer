@@ -42,14 +42,16 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
       <div>
         <button onClick={makeArray}>Make Array</button>
         <button onClick={sortArray}>Sort Array</button>
-        <input
-          type="range"
-          min="0.001"
-          max="100"
-          value={delay}
-          className="slider"
-          onChange={handleChange}
-        />
+        <label>
+          Sorting Speed
+          <input
+            type="range"
+            min="0.001"
+            max="100"
+            value={delay}
+            onChange={handleChange}
+          />
+        </label>
       </div>
       <div className={styles.bars}>{sourceArray.map((bar) => bar)}</div>
     </div>

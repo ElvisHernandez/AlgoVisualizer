@@ -2,7 +2,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import ArrayElements from "../ArrayElements";
 import { render, fireEvent, wait } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 
 jest.mock("../ArrayElements.module.css", () => ({
   bars: "bars",
@@ -34,6 +33,20 @@ describe("Test ArrayElement component", () => {
     const { getByText } = render(<ArrayElements defaultDelay={0} />);
     const button = getByText("Sort Array");
     expect(button.nodeName).toEqual("BUTTON");
+  });
+
+  test("Should render a slider to control sorting speed", () => {
+    const { getByLabelText } = render(<ArrayElements defaultDelay={0} />);
+    const slider = getByLabelText("Sorting Speed");
+    expect(slider).toBeTruthy();
+  });
+
+  test("Slider should have a range from 0.001 to 100", () => {
+    const { getByLabelText } = render(<ArrayElements defaultDelay={0} />);
+    const slider = getByLabelText("Sorting Speed");
+
+    expect(slider).toHaveAttribute("min", "0.001");
+    expect(slider).toHaveAttribute("max", "100");
   });
 
   test("Should render 100 ArrayElement components", () => {
