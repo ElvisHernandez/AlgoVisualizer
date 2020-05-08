@@ -28,7 +28,8 @@ describe("Test mergeHalves function ", () => {
     const mergedArray = await mergeHalves(
       sortedArray1,
       sortedArray2,
-      setSourceArray
+      setSourceArray,
+      0
     );
     const areEqual = compareArrays(jsxArray, mergedArray);
     expect(areEqual).toEqual(true);
@@ -46,7 +47,7 @@ describe("Test mergeSort function", () => {
       const copy1 = currentArray.slice();
       const copy2 = copy1;
 
-      mergeSort(copy1, setSourceArray);
+      mergeSort(copy1, setSourceArray, 0);
       copy2.sort((a, b) => jsxComparator(a, b));
       const isEqual = compareArrays(copy1, copy2);
       areEqualArray.push(isEqual);

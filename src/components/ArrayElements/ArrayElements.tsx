@@ -22,7 +22,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
 
   function sortArray(): void {
     setGlobalMergeSortArray(sourceArray);
-    mergeSort(sourceArray, setSourceArray);
+    mergeSort(sourceArray, setSourceArray, 0);
   }
 
   return (

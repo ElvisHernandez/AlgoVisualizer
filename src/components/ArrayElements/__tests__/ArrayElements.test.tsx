@@ -1,7 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import ArrayElements from "../ArrayElements";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, wait } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 
 jest.mock("../ArrayElements.module.css", () => ({
   bars: "bars",
@@ -64,4 +65,27 @@ describe("Test ArrayElement component", () => {
     const areEqual = arraysAreEqual(defaultHeights, newHeights);
     expect(areEqual).toEqual(false);
   });
+
+  test("Should sort the ArrayElement components when the Sort Array button is clicked", async () => {
+    const { getAllByTestId, getByText, getByTestId } = render(
+      <ArrayElements />
+    );
+    const button = getByText("Sort Array");
+
+    fireEvent.click(button);
+
+    await wait(() => getByTestId("done-sorting"));
+    const components = getAllByTestId("array-element");
+    const heights: number[] = [];
+
+    components.forEach(({ style: { height } }) => {
+      const elementHeight = +height.slice(0, -2);
+      heights.push(elementHeight);
+    });
+
+    const heightsCopy = heights.slice();
+    heightsCopy.sort((a, b) => a - b);
+    const areEqual = arraysAreEqual(heightsCopy, heights);
+    expect(areEqual).toEqual(true);
+  }, 15000);
 });
