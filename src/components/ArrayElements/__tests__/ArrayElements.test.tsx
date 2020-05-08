@@ -21,29 +21,31 @@ function arraysAreEqual(array1: number[], array2: number[]): boolean {
 describe("Test ArrayElement component", () => {
   test("Should render without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<ArrayElements />, div);
+    ReactDOM.render(<ArrayElements defaultDelay={0} />, div);
   });
 
   test("Should render a Make Array Button", () => {
-    const { getByText } = render(<ArrayElements />);
+    const { getByText } = render(<ArrayElements defaultDelay={0} />);
     const button = getByText("Make Array");
     expect(button.nodeName).toEqual("BUTTON");
   });
 
   test("Should render a Sort Array button", () => {
-    const { getByText } = render(<ArrayElements />);
+    const { getByText } = render(<ArrayElements defaultDelay={0} />);
     const button = getByText("Sort Array");
     expect(button.nodeName).toEqual("BUTTON");
   });
 
   test("Should render 100 ArrayElement components", () => {
-    const { getAllByTestId } = render(<ArrayElements />);
+    const { getAllByTestId } = render(<ArrayElements defaultDelay={0} />);
     const components = getAllByTestId("array-element");
     expect(components).toHaveLength(100);
   });
 
   test("Should produce ArrayElement components of different heights when Make Array is clicked", () => {
-    const { getAllByTestId, getByText } = render(<ArrayElements />);
+    const { getAllByTestId, getByText } = render(
+      <ArrayElements defaultDelay={0} />
+    );
     const components = getAllByTestId("array-element");
 
     const defaultHeights: number[] = [];
@@ -68,7 +70,7 @@ describe("Test ArrayElement component", () => {
 
   test("Should sort the ArrayElement components when the Sort Array button is clicked", async () => {
     const { getAllByTestId, getByText, getByTestId } = render(
-      <ArrayElements />
+      <ArrayElements defaultDelay={0} />
     );
     const button = getByText("Sort Array");
 
@@ -87,5 +89,5 @@ describe("Test ArrayElement component", () => {
     heightsCopy.sort((a, b) => a - b);
     const areEqual = arraysAreEqual(heightsCopy, heights);
     expect(areEqual).toEqual(true);
-  }, 15000);
+  });
 });

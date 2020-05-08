@@ -7,11 +7,13 @@ import {
   setGlobalDelay,
 } from "../../utils/mergeSort/mergeSort";
 
-export interface ArrayElementsProps {}
+export interface ArrayElementsProps {
+  defaultDelay: number;
+}
 
-const ArrayElements: React.FC<ArrayElementsProps> = () => {
+const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   const [sourceArray, setSourceArray] = useState<JSX.Element[]>([]);
-  const [delay, setDelay] = useState(0);
+  const [delay, setDelay] = useState(defaultDelay);
 
   useEffect(() => {
     makeArray();
@@ -42,7 +44,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = () => {
         <button onClick={sortArray}>Sort Array</button>
         <input
           type="range"
-          min="0"
+          min="0.001"
           max="100"
           value={delay}
           className="slider"
