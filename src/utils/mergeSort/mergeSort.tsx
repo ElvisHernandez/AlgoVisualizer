@@ -13,6 +13,37 @@ export function setGlobalMergeSortArray(sourceArray: JSX.Element[]): void {
   globalMergeSortArray = sourceArray;
 }
 
+async function animateAndUpdate(
+  mergedArray: JSX.Element[],
+  maI: number,
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
+  delay: number
+): Promise<void> {
+  if (delay !== 0) {
+    animateArray(
+      globalMergeSortArray,
+      mergedArray[maI - 1],
+      setSourceArray,
+      color.RED
+    );
+    await sleep(delay);
+    updateGlobal(globalMergeSortArray, mergedArray);
+    setSourceArray(globalMergeSortArray);
+  }
+}
+
+async function animate(
+  arrayElement: JSX.Element,
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
+  delay: number,
+  colorCode: color
+) {
+  if (delay !== 0) {
+    await sleep(delay);
+    animateArray(globalMergeSortArray, arrayElement, setSourceArray, colorCode);
+  }
+}
+
 export async function mergeHalves(
   la: JSX.Element[],
   ra: JSX.Element[],
@@ -29,44 +60,20 @@ export async function mergeHalves(
       mergedArray[maI] = ra[raI];
       raI++;
     }
-    animateArray(
-      globalMergeSortArray,
-      mergedArray[maI],
-      setSourceArray,
-      color.RED
-    );
     maI++;
-    await sleep(delay);
-    updateGlobal(globalMergeSortArray, mergedArray);
-    setSourceArray(globalMergeSortArray);
+    await animateAndUpdate(mergedArray, maI, setSourceArray, delay);
   }
   while (laI < la.length) {
     mergedArray[maI] = la[laI];
     laI++;
-    animateArray(
-      globalMergeSortArray,
-      mergedArray[maI],
-      setSourceArray,
-      color.RED
-    );
     maI++;
-    await sleep(delay);
-    updateGlobal(globalMergeSortArray, mergedArray);
-    setSourceArray(globalMergeSortArray);
+    await animateAndUpdate(mergedArray, maI, setSourceArray, delay);
   }
   while (raI < ra.length) {
     mergedArray[maI] = ra[raI];
     raI++;
-    animateArray(
-      globalMergeSortArray,
-      mergedArray[maI],
-      setSourceArray,
-      color.RED
-    );
     maI++;
-    await sleep(delay);
-    updateGlobal(globalMergeSortArray, mergedArray);
-    setSourceArray(globalMergeSortArray);
+    await animateAndUpdate(mergedArray, maI, setSourceArray, delay);
   }
   return mergedArray;
 }
@@ -83,15 +90,13 @@ export async function mergeSort(
   let la: JSX.Element[] = [];
   for (let i = 0; i < mid; i++) {
     la[i] = sourceArray[i];
-    await sleep(delay);
-    animateArray(globalMergeSortArray, la[i], setSourceArray, color.GREEN);
+    await animate(la[i], setSourceArray, delay, color.GREEN);
   }
 
   let ra: JSX.Element[] = [];
   for (let i = 0; i < len - mid; i++) {
     ra[i] = sourceArray[i + mid];
-    await sleep(delay);
-    animateArray(globalMergeSortArray, ra[i], setSourceArray, color.VIOLET);
+    await animate(ra[i], setSourceArray, delay, color.VIOLET);
   }
 
   await mergeSort(la, setSourceArray, delay);
@@ -101,6 +106,8 @@ export async function mergeSort(
   for (let i = 0; i < len; i++) {
     sourceArray[i] = mergedArray[i];
   }
+
+  if (delay === 0) setSourceArray(sourceArray);
 
   if (len === globalMergeSortArray.length) {
     const div: HTMLElement = document.createElement("div");
