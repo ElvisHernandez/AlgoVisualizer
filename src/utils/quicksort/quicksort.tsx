@@ -1,0 +1,72 @@
+import * as React from "react";
+// import ArrayElement, { ArrayElementProps } from '../../components/ArrayElement/ArrayElement'
+import { jsxComparator, sleep, animateArray, color } from "../helpers/helpers";
+
+let globalDelay = 0;
+
+export function setGlobalQuickSortDelay(delay: number) {
+  globalDelay = delay;
+}
+
+async function swap(
+  array: JSX.Element[],
+  index1: number,
+  index2: number,
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+): Promise<void> {
+  const temp = array[index1];
+  array[index1] = array[index2];
+  array[index2] = temp;
+  await sleep(globalDelay);
+  animateArray(array, array[index1], setSourceArray, color.BLUE);
+  animateArray(array, array[index2], setSourceArray, color.BLUE);
+}
+
+async function partition(
+  array: JSX.Element[],
+  start: number,
+  end: number,
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+) {
+  let pivot = array[end];
+  await animateArray(array, pivot, setSourceArray, color.RED);
+  let pIndex = start;
+  for (let i = start; i < end; i++) {
+    if (jsxComparator(array[i], pivot) <= 0) {
+      await swap(array, i, pIndex, setSourceArray);
+      pIndex++;
+    }
+    setSourceArray(array);
+  }
+  await swap(array, pIndex, end, setSourceArray);
+  await animateArray(array, pivot, setSourceArray, color.BLUE);
+  return pIndex;
+}
+
+export async function quicksort(
+  array: JSX.Element[],
+  start: number,
+  end: number,
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+) {
+  if (start >= end) return;
+  const pIndex = await partition(array, start, end, setSourceArray);
+  for (let i = start; i < pIndex; i++) {
+    await sleep(globalDelay);
+    animateArray(array, array[i], setSourceArray, color.GREEN);
+  }
+  await quicksort(array, start, pIndex - 1, setSourceArray);
+  for (let i = start; i < pIndex; i++) {
+    await sleep(globalDelay);
+    animateArray(array, array[i], setSourceArray, color.BLUE);
+  }
+  for (let i = pIndex + 1; i <= end; i++) {
+    await sleep(globalDelay);
+    animateArray(array, array[i], setSourceArray, color.VIOLET);
+  }
+  await quicksort(array, pIndex + 1, end, setSourceArray);
+  for (let i = pIndex + 1; i <= end; i++) {
+    await sleep(globalDelay);
+    animateArray(array, array[i], setSourceArray, color.BLUE);
+  }
+}

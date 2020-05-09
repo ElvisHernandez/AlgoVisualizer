@@ -9,6 +9,7 @@ export enum color {
   RED,
   GREEN,
   VIOLET,
+  BLUE,
 }
 
 export async function updateGlobal(
@@ -57,6 +58,9 @@ export function animateArray(
         break;
       case color.VIOLET:
         hex = "#d85bff";
+        break;
+      case color.BLUE:
+        hex = "#28E5FF";
         break;
       default:
         hex = "blue";

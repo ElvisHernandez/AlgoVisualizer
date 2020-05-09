@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`It renders correctly 1`] = `
+<div
+  data-testid="array-element"
+  style={
+    Object {
+      "background": "black",
+      "height": "10px",
+      "marginRight": "2px",
+      "width": "5px",
+    }
+  }
+/>
+`;

@@ -31,7 +31,7 @@ describe("Test ArrayElement component", () => {
 
   test("Should render a Sort Array button", () => {
     const { getByText } = render(<ArrayElements defaultDelay={0} />);
-    const button = getByText("Sort Array");
+    const button = getByText("MergeSort");
     expect(button.nodeName).toEqual("BUTTON");
   });
 
@@ -85,7 +85,7 @@ describe("Test ArrayElement component", () => {
     const { getAllByTestId, getByText, getByTestId } = render(
       <ArrayElements defaultDelay={0} />
     );
-    const button = getByText("Sort Array");
+    const button = getByText("MergeSort");
 
     fireEvent.click(button);
 
