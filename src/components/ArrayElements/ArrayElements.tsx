@@ -42,8 +42,9 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   async function quickSortArray() {
     console.log("is this working??");
     // const temp = sourceArray.slice();
-    setGlobalQuickSortArray(sourceArray);
-    quicksort(sourceArray, 0, sourceArray.length - 1, setSourceArray);
+    const temp = sourceArray.slice();
+    setGlobalQuickSortArray(temp);
+    quicksort(temp, 0, temp.length - 1, setSourceArray);
 
     // setSourceArray(temp);
   }
