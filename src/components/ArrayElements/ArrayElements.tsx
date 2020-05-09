@@ -9,7 +9,6 @@ import {
 import {
   quicksort,
   setGlobalQuickSortDelay,
-  setGlobalQuickSortArray,
 } from "../../utils/quicksort/quicksort";
 
 export interface ArrayElementsProps {
@@ -40,13 +39,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   }
 
   async function quickSortArray() {
-    console.log("is this working??");
-    // const temp = sourceArray.slice();
-    const temp = sourceArray.slice();
-    setGlobalQuickSortArray(temp);
-    quicksort(temp, 0, temp.length - 1, setSourceArray);
-
-    // setSourceArray(temp);
+    quicksort(sourceArray, 0, sourceArray.length - 1, setSourceArray);
   }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {

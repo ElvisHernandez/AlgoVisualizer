@@ -2,16 +2,10 @@ import * as React from "react";
 // import ArrayElement, { ArrayElementProps } from '../../components/ArrayElement/ArrayElement'
 import { jsxComparator, sleep, animateArray, color } from "../helpers/helpers";
 
-let globalQuickSortArray: JSX.Element[] = [];
-
 let globalDelay = 0;
 
 export function setGlobalQuickSortDelay(delay: number) {
   globalDelay = delay;
-}
-
-export function setGlobalQuickSortArray(sourceArray: JSX.Element[]): void {
-  globalQuickSortArray = sourceArray;
 }
 
 async function swap(
