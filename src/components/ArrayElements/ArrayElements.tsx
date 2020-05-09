@@ -4,9 +4,13 @@ import { makeJSXArray } from "../../utils/helpers/helpers";
 import {
   mergeSort,
   setGlobalMergeSortArray,
-  setGlobalDelay,
+  setGlobalMergeSortDelay,
 } from "../../utils/mergeSort/mergeSort";
-import { quicksort } from "../../utils/quicksort/quicksort";
+import {
+  quicksort,
+  setGlobalQuickSortDelay,
+  setGlobalQuickSortArray,
+} from "../../utils/quicksort/quicksort";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
@@ -21,7 +25,8 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   }, []);
 
   useEffect(() => {
-    setGlobalDelay(delay);
+    setGlobalMergeSortDelay(delay);
+    setGlobalQuickSortDelay(delay);
   }, [delay]);
 
   function makeArray() {
@@ -34,11 +39,13 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     mergeSort(sourceArray, setSourceArray);
   }
 
-  function quickSortArray() {
+  async function quickSortArray() {
     console.log("is this working??");
-    const temp = sourceArray.slice();
-    quicksort(temp, 0, sourceArray.length - 1, setSourceArray);
-    setSourceArray(temp);
+    // const temp = sourceArray.slice();
+    setGlobalQuickSortArray(sourceArray);
+    quicksort(sourceArray, 0, sourceArray.length - 1, setSourceArray);
+
+    // setSourceArray(temp);
   }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {

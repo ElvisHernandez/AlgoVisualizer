@@ -11,7 +11,7 @@ let globalMergeSortArray: JSX.Element[] = [];
 
 let globalDelay = 0;
 
-export function setGlobalDelay(delay: number) {
+export function setGlobalMergeSortDelay(delay: number) {
   globalDelay = delay;
 }
 
