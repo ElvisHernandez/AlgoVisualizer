@@ -24,20 +24,9 @@ async function swap(
   array[index1] = array[index2];
   array[index2] = temp;
   await sleep(10);
-  setSourceArray(array);
-  //   await sleep(globalDelay);
-  //   animateArray(
-  //     globalQuickSortArray,
-  //     array[index1],
-  //     setSourceArray,
-  //     color.GREEN
-  //   );
-  //   animateArray(
-  //     globalQuickSortArray,
-  //     array[index2],
-  //     setSourceArray,
-  //     color.VIOLET
-  //   );
+  animateArray(array, array[index1], setSourceArray, color.BLUE);
+  animateArray(array, array[index2], setSourceArray, color.BLUE);
+  //   await setSourceArray(array);
 }
 
 async function partition(
@@ -47,21 +36,20 @@ async function partition(
   setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
 ) {
   let pivot = array[end];
-  await sleep(10);
-  animateArray(globalQuickSortArray, pivot, setSourceArray, color.RED);
+  //   await sleep(10);
+  await animateArray(array, pivot, setSourceArray, color.RED);
   let pIndex = start;
   for (let i = start; i < end; i++) {
     if (jsxComparator(array[i], pivot) <= 0) {
       await swap(array, i, pIndex, setSourceArray);
       pIndex++;
-      //   await sleep(10);
-      //   setSourceArray(globalQuickSortArray);
     }
+    setSourceArray(array);
   }
   await swap(array, pIndex, end, setSourceArray);
-  await sleep(10);
-  animateArray(globalQuickSortArray, pivot, setSourceArray, color.BLUE);
-  setSourceArray(array);
+  //   await sleep(10);
+  await animateArray(array, pivot, setSourceArray, color.BLUE);
+  //   setSourceArray(array);
   return pIndex;
 }
 
@@ -75,21 +63,21 @@ export async function quicksort(
   if (start >= end) return;
   const pIndex = await partition(array, start, end, setSourceArray);
   for (let i = start; i < pIndex; i++) {
-    await sleep(10);
-    animateArray(globalQuickSortArray, array[i], setSourceArray, color.GREEN);
+    await sleep(1);
+    animateArray(array, array[i], setSourceArray, color.GREEN);
   }
   await quicksort(array, start, pIndex - 1, setSourceArray);
   for (let i = start; i < pIndex; i++) {
-    await sleep(10);
-    animateArray(globalQuickSortArray, array[i], setSourceArray, color.BLUE);
+    await sleep(1);
+    animateArray(array, array[i], setSourceArray, color.BLUE);
   }
   for (let i = pIndex + 1; i <= end; i++) {
-    await sleep(10);
-    animateArray(globalQuickSortArray, array[i], setSourceArray, color.VIOLET);
+    await sleep(1);
+    animateArray(array, array[i], setSourceArray, color.VIOLET);
   }
   await quicksort(array, pIndex + 1, end, setSourceArray);
   for (let i = pIndex + 1; i <= end; i++) {
-    await sleep(10);
-    animateArray(globalQuickSortArray, array[i], setSourceArray, color.BLUE);
+    await sleep(1);
+    animateArray(array, array[i], setSourceArray, color.BLUE);
   }
 }
