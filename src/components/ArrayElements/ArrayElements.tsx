@@ -6,6 +6,7 @@ import {
   setGlobalMergeSortArray,
   setGlobalDelay,
 } from "../../utils/mergeSort/mergeSort";
+import { quicksort } from "../../utils/quicksort/quicksort";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
@@ -28,9 +29,16 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     setSourceArray(currentArray);
   }
 
-  function sortArray(): void {
+  function mergeSortArray(): void {
     setGlobalMergeSortArray(sourceArray);
     mergeSort(sourceArray, setSourceArray);
+  }
+
+  function quickSortArray() {
+    console.log("is this working??");
+    const temp = sourceArray.slice();
+    quicksort(temp, 0, sourceArray.length - 1, setSourceArray);
+    setSourceArray(temp);
   }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {
@@ -41,7 +49,8 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     <div data-testid="array-elements" className={styles.content}>
       <div>
         <button onClick={makeArray}>Make Array</button>
-        <button onClick={sortArray}>Sort Array</button>
+        <button onClick={mergeSortArray}>MergeSort</button>
+        <button onClick={quickSortArray}>QuickSort</button>
         <label>
           Sorting Speed
           <input

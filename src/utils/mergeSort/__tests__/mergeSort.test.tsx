@@ -9,7 +9,7 @@ import {
   jsxComparator,
 } from "../../helpers/helpers";
 
-const defaultProps = {
+const defaultProps: ArrayElementProps = {
   background: "black",
   width: "2px",
   height: "10px",
