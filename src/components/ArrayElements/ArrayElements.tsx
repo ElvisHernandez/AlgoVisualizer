@@ -17,6 +17,7 @@ export interface ArrayElementsProps {
 
 const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   const [sourceArray, setSourceArray] = useState<JSX.Element[]>([]);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [delay, setDelay] = useState(defaultDelay);
 
   useEffect(() => {
@@ -28,18 +29,26 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     setGlobalQuickSortDelay(delay);
   }, [delay]);
 
-  function makeArray() {
+  function makeArray(): void {
     const currentArray = makeJSXArray(100, 1091);
     setSourceArray(currentArray);
   }
 
   function mergeSortArray(): void {
+    setIsDisabled(true);
     setGlobalMergeSortArray(sourceArray);
-    mergeSort(sourceArray, setSourceArray);
+    mergeSort(sourceArray, setSourceArray, setIsDisabled);
   }
 
-  async function quickSortArray() {
-    quicksort(sourceArray, 0, sourceArray.length - 1, setSourceArray);
+  function quickSortArray(): void {
+    setIsDisabled(true);
+    quicksort(
+      sourceArray,
+      0,
+      sourceArray.length - 1,
+      setSourceArray,
+      setIsDisabled
+    );
   }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {
@@ -49,9 +58,15 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   return (
     <div data-testid="array-elements" className={styles.content}>
       <div>
-        <button onClick={makeArray}>Make Array</button>
-        <button onClick={mergeSortArray}>MergeSort</button>
-        <button onClick={quickSortArray}>QuickSort</button>
+        <button onClick={makeArray} disabled={isDisabled}>
+          Make Array
+        </button>
+        <button onClick={mergeSortArray} disabled={isDisabled}>
+          MergeSort
+        </button>
+        <button onClick={quickSortArray} disabled={isDisabled}>
+          QuickSort
+        </button>
         <label>
           Sorting Speed
           <input

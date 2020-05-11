@@ -26,7 +26,7 @@ async function partition(
   start: number,
   end: number,
   setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
-) {
+): Promise<number> {
   let pivot = array[end];
   await animateArray(array, pivot, setSourceArray, color.RED);
   let pIndex = start;
@@ -46,15 +46,16 @@ export async function quicksort(
   array: JSX.Element[],
   start: number,
   end: number,
-  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
-) {
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
+  setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>
+): Promise<void> {
   if (start >= end) return;
   const pIndex = await partition(array, start, end, setSourceArray);
   for (let i = start; i < pIndex; i++) {
     await sleep(globalDelay);
     animateArray(array, array[i], setSourceArray, color.GREEN);
   }
-  await quicksort(array, start, pIndex - 1, setSourceArray);
+  await quicksort(array, start, pIndex - 1, setSourceArray, setIsDisabled);
   for (let i = start; i < pIndex; i++) {
     await sleep(globalDelay);
     animateArray(array, array[i], setSourceArray, color.BLUE);
@@ -63,9 +64,12 @@ export async function quicksort(
     await sleep(globalDelay);
     animateArray(array, array[i], setSourceArray, color.VIOLET);
   }
-  await quicksort(array, pIndex + 1, end, setSourceArray);
+  await quicksort(array, pIndex + 1, end, setSourceArray, setIsDisabled);
   for (let i = pIndex + 1; i <= end; i++) {
     await sleep(globalDelay);
     animateArray(array, array[i], setSourceArray, color.BLUE);
+  }
+  if (start === 0 && end === array.length - 1) {
+    setIsDisabled(false);
   }
 }
