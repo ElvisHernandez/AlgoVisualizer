@@ -83,7 +83,8 @@ export async function mergeHalves(
 
 export async function mergeSort(
   sourceArray: JSX.Element[],
-  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+  setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
+  setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>
 ): Promise<void> {
   const len = sourceArray.length;
   if (len === 1) return;
@@ -101,8 +102,8 @@ export async function mergeSort(
     await animate(ra[i], setSourceArray, color.VIOLET);
   }
 
-  await mergeSort(la, setSourceArray);
-  await mergeSort(ra, setSourceArray);
+  await mergeSort(la, setSourceArray, setIsDisabled);
+  await mergeSort(ra, setSourceArray, setIsDisabled);
   const mergedArray = await mergeHalves(la, ra, setSourceArray);
 
   for (let i = 0; i < len; i++) {
@@ -112,9 +113,6 @@ export async function mergeSort(
   if (globalDelay === 0) setSourceArray(sourceArray);
 
   if (len === globalMergeSortArray.length) {
-    const div: HTMLElement = document.createElement("div");
-    div.setAttribute("data-testid", "done-sorting");
-    div.hidden = true;
-    document.body.appendChild(div);
+    setIsDisabled(false);
   }
 }

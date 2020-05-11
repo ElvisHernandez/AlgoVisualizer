@@ -80,16 +80,21 @@ describe("Test ArrayElement component", () => {
     const areEqual = arraysAreEqual(defaultHeights, newHeights);
     expect(areEqual).toEqual(false);
   });
+});
 
-  test("Should sort the ArrayElement components when the Sort Array button is clicked", async () => {
+describe("Test sorting buttons", () => {
+  async function testSort(button: string) {
     const { getAllByTestId, getByText, getByTestId } = render(
       <ArrayElements defaultDelay={0} />
     );
-    const button = getByText("MergeSort");
+    const sortingButton = getByText(`${button}`);
 
-    fireEvent.click(button);
+    fireEvent.click(sortingButton);
 
-    await wait(() => getByTestId("done-sorting"));
+    await wait(() => {
+      const makeArrayButton: any = getByText("Make Array");
+      return !makeArrayButton.disabled;
+    });
     const components = getAllByTestId("array-element");
     const heights: number[] = [];
 
@@ -98,9 +103,19 @@ describe("Test ArrayElement component", () => {
       heights.push(elementHeight);
     });
 
+    console.log(heights);
+
     const heightsCopy = heights.slice();
     heightsCopy.sort((a, b) => a - b);
     const areEqual = arraysAreEqual(heightsCopy, heights);
     expect(areEqual).toEqual(true);
+  }
+
+  test("MergeSort button should sort divs when clicked", async () => {
+    await testSort("MergeSort");
+  });
+
+  test("QuickSort button should sort divs when clicked", async () => {
+    await testSort("QuickSort");
   });
 });
