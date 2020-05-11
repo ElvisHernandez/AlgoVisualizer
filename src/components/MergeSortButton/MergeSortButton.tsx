@@ -3,33 +3,18 @@ import {
   setGlobalMergeSortArray,
   mergeSort,
 } from "../../utils/mergeSort/mergeSort";
+import SortButton, { SortButtonProps } from "../SortButton/SortButton";
 
-export interface MergeSortButtonProps {
-  array: JSX.Element[];
-  setArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
-  isSorted: boolean;
-  setIsSorted: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const MergeSortButton: React.FC<SortButtonProps> = (props) => {
+  const { array, setArray, setIsSorted, setIsDisabled } = props;
 
-const MergeSortButton: React.FC<MergeSortButtonProps> = ({
-  array,
-  setArray,
-  isSorted,
-  setIsSorted,
-  setIsDisabled,
-}) => {
   function mergeSortArray(): void {
     setIsDisabled(true);
     setIsSorted(true);
     setGlobalMergeSortArray(array);
     mergeSort(array, setArray, setIsDisabled);
   }
-  return (
-    <button onClick={mergeSortArray} disabled={isSorted}>
-      MergeSort
-    </button>
-  );
+  return <SortButton {...props} sortArray={mergeSortArray} />;
 };
 
 export default MergeSortButton;

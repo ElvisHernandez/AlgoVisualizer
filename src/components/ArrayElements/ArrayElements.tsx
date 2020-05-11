@@ -15,6 +15,8 @@ import {
   setGlobalBubbleSortDelay,
 } from "../../utils/bubblesort/bubbleSort";
 import MergeSortButton from "../MergeSortButton/MergeSortButton";
+import QuickSortButton from "../QuickSortButton/QuickSortButton";
+import BubbleSortButton from "../BubbleSortButton/BubbleSortButton";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
@@ -42,31 +44,6 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     setSourceArray(currentArray);
   }
 
-  // function mergeSortArray(): void {
-  //   // setIsDisabled(true);
-  //   // setIsSorted(true);
-  //   setGlobalMergeSortArray(sourceArray);
-  //   mergeSort(sourceArray, setSourceArray, setIsDisabled);
-  // }
-
-  function quickSortArray(): void {
-    setIsDisabled(true);
-    setIsSorted(true);
-    quicksort(
-      sourceArray,
-      0,
-      sourceArray.length - 1,
-      setSourceArray,
-      setIsDisabled
-    );
-  }
-
-  function bubbleSortArray() {
-    setIsDisabled(true);
-    setIsSorted(true);
-    bubbleSort(sourceArray, setSourceArray, setIsDisabled);
-  }
-
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {
     setDelay(+e.currentTarget.value);
   }
@@ -85,16 +62,9 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
         <button onClick={makeArray} disabled={isDisabled}>
           Make Array
         </button>
-        {/* <button onClick={mergeSortArray} disabled={isSorted}> */}
-        {/* MergeSort */}
-        {/* </button> */}
-        <MergeSortButton {...sortingProps} />
-        <button onClick={quickSortArray} disabled={isSorted}>
-          QuickSort
-        </button>
-        <button onClick={bubbleSortArray} disabled={isSorted}>
-          BubbleSort
-        </button>
+        <MergeSortButton {...sortingProps} name="MergeSort" />
+        <QuickSortButton {...sortingProps} name="QuickSort" />
+        <BubbleSortButton {...sortingProps} name="BubbleSort" />
         <label>
           Sorting Speed
           <input
