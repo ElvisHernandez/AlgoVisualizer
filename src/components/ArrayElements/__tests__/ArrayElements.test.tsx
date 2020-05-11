@@ -103,8 +103,6 @@ describe("Test sorting buttons", () => {
       heights.push(elementHeight);
     });
 
-    console.log(heights);
-
     const heightsCopy = heights.slice();
     heightsCopy.sort((a, b) => a - b);
     const areEqual = arraysAreEqual(heightsCopy, heights);

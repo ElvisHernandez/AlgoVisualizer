@@ -10,6 +10,10 @@ import {
   quicksort,
   setGlobalQuickSortDelay,
 } from "../../utils/quicksort/quicksort";
+import {
+  bubbleSort,
+  setGlobalBubbleSortDelay,
+} from "../../utils/bubblesort/bubbleSort";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
@@ -28,6 +32,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   useEffect(() => {
     setGlobalMergeSortDelay(delay);
     setGlobalQuickSortDelay(delay);
+    setGlobalBubbleSortDelay(delay);
   }, [delay]);
 
   function makeArray(): void {
@@ -55,6 +60,10 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     );
   }
 
+  function bubbleSortArray() {
+    bubbleSort(sourceArray, setSourceArray);
+  }
+
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {
     setDelay(+e.currentTarget.value);
   }
@@ -71,6 +80,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
         <button onClick={quickSortArray} disabled={isSorted}>
           QuickSort
         </button>
+        <button onClick={bubbleSortArray}>BubbleSort</button>
         <label>
           Sorting Speed
           <input
