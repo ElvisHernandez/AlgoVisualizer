@@ -18,6 +18,7 @@ export interface ArrayElementsProps {
 const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   const [sourceArray, setSourceArray] = useState<JSX.Element[]>([]);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isSorted, setIsSorted] = useState(false);
   const [delay, setDelay] = useState(defaultDelay);
 
   useEffect(() => {
@@ -31,17 +32,20 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
 
   function makeArray(): void {
     const currentArray = makeJSXArray(100, 1091);
+    setIsSorted(false);
     setSourceArray(currentArray);
   }
 
   function mergeSortArray(): void {
     setIsDisabled(true);
+    setIsSorted(true);
     setGlobalMergeSortArray(sourceArray);
     mergeSort(sourceArray, setSourceArray, setIsDisabled);
   }
 
   function quickSortArray(): void {
     setIsDisabled(true);
+    setIsSorted(true);
     quicksort(
       sourceArray,
       0,
@@ -61,10 +65,10 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
         <button onClick={makeArray} disabled={isDisabled}>
           Make Array
         </button>
-        <button onClick={mergeSortArray} disabled={isDisabled}>
+        <button onClick={mergeSortArray} disabled={isSorted}>
           MergeSort
         </button>
-        <button onClick={quickSortArray} disabled={isDisabled}>
+        <button onClick={quickSortArray} disabled={isSorted}>
           QuickSort
         </button>
         <label>
