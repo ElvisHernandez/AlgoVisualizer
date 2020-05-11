@@ -114,9 +114,5 @@ export async function mergeSort(
 
   if (len === globalMergeSortArray.length) {
     setIsDisabled(false);
-    const div: HTMLElement = document.createElement("div");
-    div.setAttribute("data-testid", "done-sorting");
-    div.hidden = true;
-    document.body.appendChild(div);
   }
 }

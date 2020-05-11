@@ -8,6 +8,7 @@ import { quicksort } from "../quicksort";
 
 describe("Test quicksort function", () => {
   const setSourceArray = jest.fn();
+  const setIsDisabled = jest.fn();
   test("should sort an array of ArrayElement react components by their height attributes", () => {
     const areEqualArray: boolean[] = [];
     // make 100 different arrays and check if mergeSort sorts them
@@ -16,7 +17,7 @@ describe("Test quicksort function", () => {
       const copy1 = currentArray.slice();
       const copy2 = copy1;
 
-      quicksort(copy1, 0, copy1.length - 1, setSourceArray);
+      quicksort(copy1, 0, copy1.length - 1, setSourceArray, setIsDisabled);
       copy2.sort((a, b) => jsxComparator(a, b));
       const isEqual = compareArrays(copy1, copy2);
       areEqualArray.push(isEqual);
