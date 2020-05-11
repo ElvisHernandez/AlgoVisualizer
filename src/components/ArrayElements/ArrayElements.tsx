@@ -14,6 +14,7 @@ import {
   bubbleSort,
   setGlobalBubbleSortDelay,
 } from "../../utils/bubblesort/bubbleSort";
+import MergeSortButton from "../MergeSortButton/MergeSortButton";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
@@ -41,12 +42,12 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     setSourceArray(currentArray);
   }
 
-  function mergeSortArray(): void {
-    setIsDisabled(true);
-    setIsSorted(true);
-    setGlobalMergeSortArray(sourceArray);
-    mergeSort(sourceArray, setSourceArray, setIsDisabled);
-  }
+  // function mergeSortArray(): void {
+  //   // setIsDisabled(true);
+  //   // setIsSorted(true);
+  //   setGlobalMergeSortArray(sourceArray);
+  //   mergeSort(sourceArray, setSourceArray, setIsDisabled);
+  // }
 
   function quickSortArray(): void {
     setIsDisabled(true);
@@ -61,12 +62,22 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   }
 
   function bubbleSortArray() {
-    bubbleSort(sourceArray, setSourceArray);
+    setIsDisabled(true);
+    setIsSorted(true);
+    bubbleSort(sourceArray, setSourceArray, setIsDisabled);
   }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {
     setDelay(+e.currentTarget.value);
   }
+
+  const sortingProps = {
+    array: sourceArray,
+    setArray: setSourceArray,
+    isSorted: isSorted,
+    setIsSorted: setIsSorted,
+    setIsDisabled: setIsDisabled,
+  };
 
   return (
     <div data-testid="array-elements" className={styles.content}>
@@ -74,13 +85,16 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
         <button onClick={makeArray} disabled={isDisabled}>
           Make Array
         </button>
-        <button onClick={mergeSortArray} disabled={isSorted}>
-          MergeSort
-        </button>
+        {/* <button onClick={mergeSortArray} disabled={isSorted}> */}
+        {/* MergeSort */}
+        {/* </button> */}
+        <MergeSortButton {...sortingProps} />
         <button onClick={quickSortArray} disabled={isSorted}>
           QuickSort
         </button>
-        <button onClick={bubbleSortArray}>BubbleSort</button>
+        <button onClick={bubbleSortArray} disabled={isSorted}>
+          BubbleSort
+        </button>
         <label>
           Sorting Speed
           <input

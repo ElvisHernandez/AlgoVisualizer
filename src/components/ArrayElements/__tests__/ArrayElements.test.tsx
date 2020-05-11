@@ -116,4 +116,8 @@ describe("Test sorting buttons", () => {
   test("QuickSort button should sort divs when clicked", async () => {
     await testSort("QuickSort");
   });
+
+  test("BubbleSort button should sort divs when clicked", async () => {
+    await testSort("BubbleSort");
+  });
 });
