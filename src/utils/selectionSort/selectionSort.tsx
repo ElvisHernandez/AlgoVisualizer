@@ -38,10 +38,12 @@ export async function selectionSort(
     let minInd = i;
     for (let j = i + 1; j < array.length; j++) {
       if (jsxComparator(array[j], array[minInd]) < 0) minInd = j;
-      await animateArray(array, array[j], setSourceArray, color.RED);
-      await sleep(globalDelay);
-      await animateArray(array, array[j], setSourceArray, color.BLUE);
-      setSourceArray(array);
+      if (globalDelay !== 0) {
+        await animateArray(array, array[j], setSourceArray, color.RED);
+        await sleep(globalDelay);
+        await animateArray(array, array[j], setSourceArray, color.BLUE);
+        setSourceArray(array);
+      }
     }
     await swap(array, i, minInd, setSourceArray);
   }

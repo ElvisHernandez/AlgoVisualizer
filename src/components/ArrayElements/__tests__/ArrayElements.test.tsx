@@ -47,9 +47,15 @@ describe("Components should render", () => {
     expect(button.nodeName).toEqual("BUTTON");
   });
 
-  test("Should render a SelectionSort Array button", () => {
+  test("should render a SelectionSort Array button", () => {
     const { getByText } = render(<ArrayElements defaultDelay={0} />);
     const button = getByText("SelectionSort");
+    expect(button.nodeName).toEqual("BUTTON");
+  });
+
+  test("should render a InsertionSort Array button", () => {
+    const { getByText } = render(<ArrayElements defaultDelay={0} />);
+    const button = getByText("InsertionSort");
     expect(button.nodeName).toEqual("BUTTON");
   });
 
@@ -137,5 +143,13 @@ describe("Test sorting buttons", () => {
 
   test("BubbleSort button should sort divs when clicked", async () => {
     await testSort("BubbleSort");
+  });
+
+  test("SelectionSort button should sort divs when clicked", async () => {
+    await testSort("SelectionSort");
+  });
+
+  test("InsertionSort button should sort divs when clicked", async () => {
+    await testSort("InsertionSort");
   });
 });

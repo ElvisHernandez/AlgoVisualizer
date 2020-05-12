@@ -15,20 +15,23 @@ export async function insertionSort(
   for (let i = 1; i < array.length; i++) {
     let unsortedElement = array[i];
     let j = i - 1;
-    await animateArray(array, array[j], setSourceArray, color.GREEN);
-    setSourceArray(array);
+    if (globalDelay !== 0) {
+      await animateArray(array, array[j], setSourceArray, color.GREEN);
+      setSourceArray(array);
+    }
     while (j >= 0 && jsxComparator(array[j], unsortedElement) > 0) {
       array[j + 1] = array[j];
       j--;
     }
     array[j + 1] = unsortedElement;
-    for (let k = j + 1; k <= i; k++) {
-      await animateArray(array, array[k], setSourceArray, color.VIOLET);
-      await sleep(0);
-      await animateArray(array, array[k], setSourceArray, color.BLUE);
-      setSourceArray(array);
+    if (globalDelay !== 0) {
+      for (let k = j + 1; k <= i; k++) {
+        await animateArray(array, array[k], setSourceArray, color.VIOLET);
+        await sleep(globalDelay);
+        await animateArray(array, array[k], setSourceArray, color.BLUE);
+        setSourceArray(array);
+      }
     }
   }
-  //   setSourceArray(array);
   setIsDisabled(false);
 }
