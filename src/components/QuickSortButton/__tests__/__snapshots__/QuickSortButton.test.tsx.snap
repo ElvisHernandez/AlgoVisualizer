@@ -2,6 +2,7 @@
 
 exports[`It renders correctly 1`] = `
 <button
+  className="btn btn-info"
   disabled={false}
   onClick={[Function]}
 >

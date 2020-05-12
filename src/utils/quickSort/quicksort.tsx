@@ -16,9 +16,11 @@ async function swap(
   const temp = array[index1];
   array[index1] = array[index2];
   array[index2] = temp;
-  if (globalDelay !== 0) await sleep(globalDelay);
-  animateArray(array, array[index1], setSourceArray, color.BLUE);
-  animateArray(array, array[index2], setSourceArray, color.BLUE);
+  if (globalDelay !== 0) {
+    await sleep(globalDelay);
+    animateArray(array, array[index1], setSourceArray, color.BLUE);
+    animateArray(array, array[index2], setSourceArray, color.BLUE);
+  }
 }
 
 async function partition(
@@ -28,7 +30,9 @@ async function partition(
   setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
 ): Promise<number> {
   let pivot = array[end];
-  await animateArray(array, pivot, setSourceArray, color.RED);
+  if (globalDelay !== 0) {
+    await animateArray(array, pivot, setSourceArray, color.RED);
+  }
   let pIndex = start;
   for (let i = start; i < end; i++) {
     if (jsxComparator(array[i], pivot) <= 0) {

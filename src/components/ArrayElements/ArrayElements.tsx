@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useImperativeHandle } from "react";
 import styles from "./ArrayElements.module.css";
 import { makeJSXArray } from "../../utils/helpers/helpers";
 import MergeSortButton from "../MergeSortButton/MergeSortButton";
@@ -7,23 +7,33 @@ import BubbleSortButton from "../BubbleSortButton/BubbleSortButton";
 import SelectionSortButton from "../SelectionSortButton/SelectionSortButton";
 import InsertionSortButton from "../InsertionSortButton/InsertionSortButton";
 import SpeedSlider from "../SpeedSlider/SpeedSlider";
+import DivCountSlider from "../DivCountSlider/DivCountSlider";
+import DivLengthSlider from "../DivLengthSlider/DivLengthSlider";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
+  defaultDivCount: number;
+  defaultDivLength: number;
 }
 
-const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
+const ArrayElements: React.FC<ArrayElementsProps> = ({
+  defaultDelay,
+  defaultDivCount,
+  defaultDivLength,
+}) => {
   const [sourceArray, setSourceArray] = useState<JSX.Element[]>([]);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isSorted, setIsSorted] = useState(false);
   const [delay, setDelay] = useState(defaultDelay);
+  const [divCount, setDivCount] = useState(defaultDivCount);
+  const [divLength, setDivLength] = useState(defaultDivLength);
 
   useEffect(() => {
-    makeArray();
+    makeArray(divCount, divLength);
   }, []);
 
-  function makeArray(): void {
-    const currentArray = makeJSXArray(100, 1091);
+  function makeArray(divCount: number, divLength: number): void {
+    const currentArray = makeJSXArray(divCount, divLength);
     setIsSorted(false);
     setSourceArray(currentArray);
   }
@@ -42,7 +52,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
       <div>
         <button
           className="btn btn-dark"
-          onClick={makeArray}
+          onClick={() => makeArray(divCount, divLength)}
           disabled={isDisabled}
         >
           Make Array
@@ -53,6 +63,18 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
         <SelectionSortButton {...sortingProps} name="SelectionSort" />
         <InsertionSortButton {...sortingProps} name="InsertionSort" />
         <SpeedSlider delay={delay} setDelay={setDelay} />
+        <DivCountSlider
+          makeArray={makeArray}
+          defaultDivCount={defaultDivCount}
+          divLength={divLength}
+          setDivCount={setDivCount}
+        />
+        <DivLengthSlider
+          makeArray={makeArray}
+          defaultDivLength={divLength}
+          divCount={divCount}
+          setDivLength={setDivLength}
+        />
       </div>
       <div className={styles.bars}>{sourceArray.map((bar) => bar)}</div>
     </div>
