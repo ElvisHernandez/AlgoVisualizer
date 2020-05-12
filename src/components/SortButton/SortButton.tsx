@@ -8,7 +8,7 @@ export interface SortButtonProps {
   setIsSorted: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   sortArray?: () => void;
-  delay?: number;
+  delay: number;
 }
 
 const SortButton: React.FC<SortButtonProps> = ({

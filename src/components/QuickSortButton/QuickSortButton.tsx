@@ -3,7 +3,7 @@ import SortButton, { SortButtonProps } from "../SortButton/SortButton";
 import {
   quicksort,
   setGlobalQuickSortDelay,
-} from "../../utils/quicksort/quicksort";
+} from "../../utils/quickSort/quicksort";
 
 const QuickSortButton: React.FC<SortButtonProps> = (props) => {
   const {
@@ -14,7 +14,7 @@ const QuickSortButton: React.FC<SortButtonProps> = (props) => {
     delay,
   } = props;
 
-  setGlobalQuickSortDelay(delay!);
+  setGlobalQuickSortDelay(delay);
 
   function quickSortArray() {
     setIsDisabled(true);

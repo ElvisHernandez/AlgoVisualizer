@@ -3,7 +3,7 @@ import SortButton, { SortButtonProps } from "../SortButton/SortButton";
 import {
   bubbleSort,
   setGlobalBubbleSortDelay,
-} from "../../utils/bubblesort/bubbleSort";
+} from "../../utils/bubbleSort/bubbleSort";
 
 const BubbleSortButton: React.FC<SortButtonProps> = (props) => {
   const {
@@ -14,7 +14,7 @@ const BubbleSortButton: React.FC<SortButtonProps> = (props) => {
     delay,
   } = props;
 
-  setGlobalBubbleSortDelay(delay!);
+  setGlobalBubbleSortDelay(delay);
 
   function bubbleSortArray() {
     setIsDisabled(true);

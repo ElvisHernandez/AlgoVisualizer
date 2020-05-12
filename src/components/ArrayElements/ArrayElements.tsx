@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
 import { makeJSXArray } from "../../utils/helpers/helpers";
-import { setGlobalMergeSortDelay } from "../../utils/mergeSort/mergeSort";
-import { setGlobalQuickSortDelay } from "../../utils/quicksort/quicksort";
-import { setGlobalBubbleSortDelay } from "../../utils/bubblesort/bubbleSort";
 import MergeSortButton from "../MergeSortButton/MergeSortButton";
 import QuickSortButton from "../QuickSortButton/QuickSortButton";
 import BubbleSortButton from "../BubbleSortButton/BubbleSortButton";
+import SelectionSortButton from "../SelectionSortButton/SelectionSortButton";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
@@ -50,6 +48,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
         <MergeSortButton {...sortingProps} name="MergeSort" />
         <QuickSortButton {...sortingProps} name="QuickSort" />
         <BubbleSortButton {...sortingProps} name="BubbleSort" />
+        <SelectionSortButton {...sortingProps} name="SelectionSort" />
         <label>
           Sorting Speed
           <input

@@ -15,7 +15,7 @@ const MergeSortButton: React.FC<SortButtonProps> = (props) => {
     delay,
   } = props;
 
-  setGlobalMergeSortDelay(delay!);
+  setGlobalMergeSortDelay(delay);
 
   function mergeSortArray(): void {
     setIsDisabled(true);

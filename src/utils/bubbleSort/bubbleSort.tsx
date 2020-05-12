@@ -33,13 +33,14 @@ export async function bubbleSort(
   setSourceArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>
 ): Promise<void> {
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length; j++) {
-      if (jsxComparator(arr[i], arr[j]) < 0) {
-        // animateArray(arr, arr[j], setSourceArray, color.RED);
-        setSourceArray(arr);
-        await swap(arr, i, j, setSourceArray);
-        // await setSourceArray(arr);
+  let swapCounter = -1;
+
+  while (swapCounter !== 0) {
+    swapCounter = 0;
+    for (let i = 0; i < arr.length - 1; i++) {
+      if (jsxComparator(arr[i], arr[i + 1]) > 0) {
+        await swap(arr, i, i + 1, setSourceArray);
+        swapCounter++;
       }
     }
   }
