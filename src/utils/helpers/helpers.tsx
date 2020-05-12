@@ -88,14 +88,20 @@ export function makeJSXArray(
   heightRange: number
 ): JSX.Element[] {
   const currentArray: JSX.Element[] = [];
-  for (let i = 0; i < divCount; i++) {
-    const height = Math.floor(Math.random() * heightRange + 5);
+  const { width, height } = window.screen;
+  const widthRange = width * 0.6;
+  const heightRange2 = height * 0.7;
+  // divide by 7 because thats approximately how many vertical
+  // pixels a single ArrayElement component takes up
+  const divRange = Math.floor(heightRange2 / 7);
+  for (let i = 0; i < divRange; i++) {
+    const divHeight = Math.floor(Math.random() * widthRange + 5);
     currentArray.push(
       <ArrayElement
         key={i}
         background="#00e5ff"
         width="5px"
-        height={height + "px"}
+        height={divHeight + "px"}
       />
     );
   }

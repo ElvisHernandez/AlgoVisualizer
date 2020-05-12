@@ -6,6 +6,7 @@ import QuickSortButton from "../QuickSortButton/QuickSortButton";
 import BubbleSortButton from "../BubbleSortButton/BubbleSortButton";
 import SelectionSortButton from "../SelectionSortButton/SelectionSortButton";
 import InsertionSortButton from "../InsertionSortButton/InsertionSortButton";
+import SpeedSlider from "../SpeedSlider/SpeedSlider";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
@@ -25,10 +26,6 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     const currentArray = makeJSXArray(100, 1091);
     setIsSorted(false);
     setSourceArray(currentArray);
-  }
-
-  function handleChange(e: React.FormEvent<HTMLInputElement>): void {
-    setDelay(+e.currentTarget.value);
   }
 
   const sortingProps = {
@@ -55,16 +52,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
         <BubbleSortButton {...sortingProps} name="BubbleSort" />
         <SelectionSortButton {...sortingProps} name="SelectionSort" />
         <InsertionSortButton {...sortingProps} name="InsertionSort" />
-        <label>
-          Sorting Speed
-          <input
-            type="range"
-            min="0.001"
-            max="100"
-            value={delay}
-            onChange={handleChange}
-          />
-        </label>
+        <SpeedSlider delay={delay} setDelay={setDelay} />
       </div>
       <div className={styles.bars}>{sourceArray.map((bar) => bar)}</div>
     </div>
