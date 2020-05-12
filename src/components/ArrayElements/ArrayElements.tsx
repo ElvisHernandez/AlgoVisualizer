@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
 import { makeJSXArray } from "../../utils/helpers/helpers";
-import {
-  mergeSort,
-  setGlobalMergeSortArray,
-  setGlobalMergeSortDelay,
-} from "../../utils/mergeSort/mergeSort";
-import {
-  quicksort,
-  setGlobalQuickSortDelay,
-} from "../../utils/quicksort/quicksort";
-import {
-  bubbleSort,
-  setGlobalBubbleSortDelay,
-} from "../../utils/bubblesort/bubbleSort";
+import { setGlobalMergeSortDelay } from "../../utils/mergeSort/mergeSort";
+import { setGlobalQuickSortDelay } from "../../utils/quicksort/quicksort";
+import { setGlobalBubbleSortDelay } from "../../utils/bubblesort/bubbleSort";
 import MergeSortButton from "../MergeSortButton/MergeSortButton";
 import QuickSortButton from "../QuickSortButton/QuickSortButton";
 import BubbleSortButton from "../BubbleSortButton/BubbleSortButton";

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { setGlobalMergeSortArray } from "../../utils/mergeSort/mergeSort";
 
 export interface SortButtonProps {
   name: string;
@@ -13,11 +12,7 @@ export interface SortButtonProps {
 
 const SortButton: React.FC<SortButtonProps> = ({
   name,
-  array,
-  setArray,
   isSorted,
-  setIsSorted,
-  setIsDisabled,
   sortArray,
 }) => {
   return (

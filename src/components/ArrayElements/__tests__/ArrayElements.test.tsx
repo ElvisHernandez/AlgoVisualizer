@@ -17,7 +17,7 @@ function arraysAreEqual(array1: number[], array2: number[]): boolean {
   return true;
 }
 
-describe("Test ArrayElement component", () => {
+describe("Component should render", () => {
   test("Should render without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(<ArrayElements defaultDelay={0} />, div);
@@ -29,9 +29,14 @@ describe("Test ArrayElement component", () => {
     expect(button.nodeName).toEqual("BUTTON");
   });
 
-  test("Should render a Sort Array button", () => {
+  test("Should render a MergeSort Array button", () => {
     const { getByText } = render(<ArrayElements defaultDelay={0} />);
     const button = getByText("MergeSort");
+    expect(button.nodeName).toEqual("BUTTON");
+  });
+  test("Should render a QuickSort Array button", () => {
+    const { getByText } = render(<ArrayElements defaultDelay={0} />);
+    const button = getByText("QuickSort");
     expect(button.nodeName).toEqual("BUTTON");
   });
 
