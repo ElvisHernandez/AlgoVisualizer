@@ -78,6 +78,7 @@ export function animateArray(
     for (let i = 0; i < next.length; i++) {
       globalArray[i] = next[i];
     }
+
     return next;
   });
 }
