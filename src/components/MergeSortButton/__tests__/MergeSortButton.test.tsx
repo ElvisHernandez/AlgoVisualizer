@@ -5,11 +5,12 @@ import { SortButtonProps } from "../../SortButton/SortButton";
 
 const defaultProps: SortButtonProps = {
   name: "MergeSort",
-  array: [],
+  sourceArray: [],
   isSorted: false,
-  setArray: jest.fn(),
+  setSourceArray: jest.fn(),
   setIsDisabled: jest.fn(),
   setIsSorted: jest.fn(),
+  delay: 0,
 };
 
 test("It renders correctly", () => {
