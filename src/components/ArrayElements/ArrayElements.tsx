@@ -22,12 +22,6 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     makeArray();
   }, []);
 
-  useEffect(() => {
-    setGlobalMergeSortDelay(delay);
-    setGlobalQuickSortDelay(delay);
-    setGlobalBubbleSortDelay(delay);
-  }, [delay]);
-
   function makeArray(): void {
     const currentArray = makeJSXArray(100, 1091);
     setIsSorted(false);
@@ -39,11 +33,12 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   }
 
   const sortingProps = {
-    array: sourceArray,
-    setArray: setSourceArray,
-    isSorted: isSorted,
-    setIsSorted: setIsSorted,
-    setIsDisabled: setIsDisabled,
+    sourceArray,
+    setSourceArray,
+    isSorted,
+    setIsSorted,
+    setIsDisabled,
+    delay,
   };
 
   return (

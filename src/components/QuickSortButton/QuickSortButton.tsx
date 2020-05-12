@@ -1,14 +1,31 @@
 import * as React from "react";
 import SortButton, { SortButtonProps } from "../SortButton/SortButton";
-import { quicksort } from "../../utils/quicksort/quicksort";
+import {
+  quicksort,
+  setGlobalQuickSortDelay,
+} from "../../utils/quicksort/quicksort";
 
 const QuickSortButton: React.FC<SortButtonProps> = (props) => {
-  const { setIsDisabled, setIsSorted, array, setArray } = props;
+  const {
+    setIsDisabled,
+    setIsSorted,
+    sourceArray,
+    setSourceArray,
+    delay,
+  } = props;
+
+  setGlobalQuickSortDelay(delay!);
 
   function quickSortArray() {
     setIsDisabled(true);
     setIsSorted(true);
-    quicksort(array, 0, array.length - 1, setArray, setIsDisabled);
+    quicksort(
+      sourceArray,
+      0,
+      sourceArray.length - 1,
+      setSourceArray,
+      setIsDisabled
+    );
   }
 
   return <SortButton {...props} sortArray={quickSortArray} />;
