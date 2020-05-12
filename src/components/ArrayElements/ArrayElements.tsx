@@ -5,6 +5,7 @@ import MergeSortButton from "../MergeSortButton/MergeSortButton";
 import QuickSortButton from "../QuickSortButton/QuickSortButton";
 import BubbleSortButton from "../BubbleSortButton/BubbleSortButton";
 import SelectionSortButton from "../SelectionSortButton/SelectionSortButton";
+import InsertionSortButton from "../InsertionSortButton/InsertionSortButton";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
@@ -49,6 +50,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
         <QuickSortButton {...sortingProps} name="QuickSort" />
         <BubbleSortButton {...sortingProps} name="BubbleSort" />
         <SelectionSortButton {...sortingProps} name="SelectionSort" />
+        <InsertionSortButton {...sortingProps} name="InsertionSort" />
         <label>
           Sorting Speed
           <input
