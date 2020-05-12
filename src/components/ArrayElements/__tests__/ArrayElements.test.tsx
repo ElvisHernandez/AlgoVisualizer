@@ -17,7 +17,7 @@ function arraysAreEqual(array1: number[], array2: number[]): boolean {
   return true;
 }
 
-describe("Test ArrayElement component", () => {
+describe("Components should render", () => {
   test("Should render without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(<ArrayElements defaultDelay={0} />, div);
@@ -29,9 +29,33 @@ describe("Test ArrayElement component", () => {
     expect(button.nodeName).toEqual("BUTTON");
   });
 
-  test("Should render a Sort Array button", () => {
+  test("Should render a MergeSort Array button", () => {
     const { getByText } = render(<ArrayElements defaultDelay={0} />);
     const button = getByText("MergeSort");
+    expect(button.nodeName).toEqual("BUTTON");
+  });
+
+  test("Should render a QuickSort Array button", () => {
+    const { getByText } = render(<ArrayElements defaultDelay={0} />);
+    const button = getByText("QuickSort");
+    expect(button.nodeName).toEqual("BUTTON");
+  });
+
+  test("Should render a BubbleSort Array button", () => {
+    const { getByText } = render(<ArrayElements defaultDelay={0} />);
+    const button = getByText("BubbleSort");
+    expect(button.nodeName).toEqual("BUTTON");
+  });
+
+  test("should render a SelectionSort Array button", () => {
+    const { getByText } = render(<ArrayElements defaultDelay={0} />);
+    const button = getByText("SelectionSort");
+    expect(button.nodeName).toEqual("BUTTON");
+  });
+
+  test("should render a InsertionSort Array button", () => {
+    const { getByText } = render(<ArrayElements defaultDelay={0} />);
+    const button = getByText("InsertionSort");
     expect(button.nodeName).toEqual("BUTTON");
   });
 
@@ -103,8 +127,6 @@ describe("Test sorting buttons", () => {
       heights.push(elementHeight);
     });
 
-    console.log(heights);
-
     const heightsCopy = heights.slice();
     heightsCopy.sort((a, b) => a - b);
     const areEqual = arraysAreEqual(heightsCopy, heights);
@@ -117,5 +139,17 @@ describe("Test sorting buttons", () => {
 
   test("QuickSort button should sort divs when clicked", async () => {
     await testSort("QuickSort");
+  });
+
+  test("BubbleSort button should sort divs when clicked", async () => {
+    await testSort("BubbleSort");
+  });
+
+  test("SelectionSort button should sort divs when clicked", async () => {
+    await testSort("SelectionSort");
+  });
+
+  test("InsertionSort button should sort divs when clicked", async () => {
+    await testSort("InsertionSort");
   });
 });

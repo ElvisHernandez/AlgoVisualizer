@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
 import { makeJSXArray } from "../../utils/helpers/helpers";
-import {
-  mergeSort,
-  setGlobalMergeSortArray,
-  setGlobalMergeSortDelay,
-} from "../../utils/mergeSort/mergeSort";
-import {
-  quicksort,
-  setGlobalQuickSortDelay,
-} from "../../utils/quicksort/quicksort";
+import MergeSortButton from "../MergeSortButton/MergeSortButton";
+import QuickSortButton from "../QuickSortButton/QuickSortButton";
+import BubbleSortButton from "../BubbleSortButton/BubbleSortButton";
+import SelectionSortButton from "../SelectionSortButton/SelectionSortButton";
+import InsertionSortButton from "../InsertionSortButton/InsertionSortButton";
 
 export interface ArrayElementsProps {
   defaultDelay: number;
@@ -25,39 +21,24 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
     makeArray();
   }, []);
 
-  useEffect(() => {
-    setGlobalMergeSortDelay(delay);
-    setGlobalQuickSortDelay(delay);
-  }, [delay]);
-
   function makeArray(): void {
     const currentArray = makeJSXArray(100, 1091);
     setIsSorted(false);
     setSourceArray(currentArray);
   }
 
-  function mergeSortArray(): void {
-    setIsDisabled(true);
-    setIsSorted(true);
-    setGlobalMergeSortArray(sourceArray);
-    mergeSort(sourceArray, setSourceArray, setIsDisabled);
-  }
-
-  function quickSortArray(): void {
-    setIsDisabled(true);
-    setIsSorted(true);
-    quicksort(
-      sourceArray,
-      0,
-      sourceArray.length - 1,
-      setSourceArray,
-      setIsDisabled
-    );
-  }
-
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {
     setDelay(+e.currentTarget.value);
   }
+
+  const sortingProps = {
+    sourceArray,
+    setSourceArray,
+    isSorted,
+    setIsSorted,
+    setIsDisabled,
+    delay,
+  };
 
   return (
     <div data-testid="array-elements" className={styles.content}>
@@ -65,12 +46,11 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
         <button onClick={makeArray} disabled={isDisabled}>
           Make Array
         </button>
-        <button onClick={mergeSortArray} disabled={isSorted}>
-          MergeSort
-        </button>
-        <button onClick={quickSortArray} disabled={isSorted}>
-          QuickSort
-        </button>
+        <MergeSortButton {...sortingProps} name="MergeSort" />
+        <QuickSortButton {...sortingProps} name="QuickSort" />
+        <BubbleSortButton {...sortingProps} name="BubbleSort" />
+        <SelectionSortButton {...sortingProps} name="SelectionSort" />
+        <InsertionSortButton {...sortingProps} name="InsertionSort" />
         <label>
           Sorting Speed
           <input

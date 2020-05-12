@@ -8,7 +8,6 @@ import {
 } from "../helpers/helpers";
 
 let globalMergeSortArray: JSX.Element[] = [];
-
 let globalDelay = 0;
 
 export function setGlobalMergeSortDelay(delay: number) {
