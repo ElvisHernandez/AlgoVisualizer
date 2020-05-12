@@ -43,7 +43,11 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({ defaultDelay }) => {
   return (
     <div data-testid="array-elements" className={styles.content}>
       <div>
-        <button onClick={makeArray} disabled={isDisabled}>
+        <button
+          className="btn btn-dark"
+          onClick={makeArray}
+          disabled={isDisabled}
+        >
           Make Array
         </button>
         <MergeSortButton {...sortingProps} name="MergeSort" />
