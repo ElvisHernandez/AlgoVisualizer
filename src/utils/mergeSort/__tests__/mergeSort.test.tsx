@@ -9,6 +9,10 @@ import {
   jsxComparator,
 } from "../../helpers/helpers";
 
+jest.mock("../../../components/ArrayElement/ArrayElement.module.css", () => ({
+  container: "container",
+}));
+
 const defaultProps: ArrayElementProps = {
   background: "black",
   width: "2px",

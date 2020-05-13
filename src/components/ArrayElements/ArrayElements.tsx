@@ -60,7 +60,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({
 
   return (
     <div data-testid="array-elements" className={styles.content}>
-      <div>
+      <div className={styles.controls}>
         <div className={styles.sliders}>
           <SpeedSlider delay={delay} setDelay={setDelay} />
           <DivCountSlider {...sliderProps} />

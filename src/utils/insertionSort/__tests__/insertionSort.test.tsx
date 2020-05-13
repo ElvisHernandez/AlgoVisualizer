@@ -6,6 +6,10 @@ import {
 } from "../../helpers/helpers";
 import { insertionSort } from "../insertionSort";
 
+jest.mock("../../../components/ArrayElement/ArrayElement.module.css", () => ({
+  container: "container",
+}));
+
 describe("Test quicksort function", () => {
   const setSourceArray = jest.fn();
   const setIsDisabled = jest.fn();

@@ -2,14 +2,18 @@
 
 exports[`It renders correctly 1`] = `
 <div
-  data-testid="array-element"
-  style={
-    Object {
-      "background": "black",
-      "height": "10px",
-      "marginRight": "2px",
-      "width": "5px",
+  className="container"
+>
+  <div
+    data-testid="array-element"
+    style={
+      Object {
+        "background": "black",
+        "display": "inline-block",
+        "height": "5px",
+        "width": "10px",
+      }
     }
-  }
-/>
+  />
+</div>
 `;

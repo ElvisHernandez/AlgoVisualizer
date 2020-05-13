@@ -10,6 +10,10 @@ import {
   color,
 } from "../helpers";
 
+jest.mock("../../../components/ArrayElement/ArrayElement.module.css", () => ({
+  container: "container",
+}));
+
 const defaultProps = {
   background: "black",
   width: "2px",

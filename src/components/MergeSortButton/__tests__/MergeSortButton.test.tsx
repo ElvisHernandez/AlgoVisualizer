@@ -3,6 +3,10 @@ import renderer from "react-test-renderer";
 import MergeSortButton from "../MergeSortButton";
 import { SortButtonProps } from "../../SortButton/SortButton";
 
+jest.mock("../../ArrayElement/ArrayElement.module.css", () => ({
+  container: "container",
+}));
+
 const defaultProps: SortButtonProps = {
   name: "MergeSort",
   sourceArray: [],

@@ -5,18 +5,23 @@
 }
 
 .bars {
-  position: fixed;
-  bottom: 0;
-  display: flex;
-  flex-direction: row-reverse;
+  margin-top: 5rem;
+  /* position: fixed; */
+  /* bottom: 0; */
+  /* display: flex; */
+  /* flex-direction: row-reverse; */
   /* justify-content: end; */
-  align-items: center;
-  height: 100%;
-  transform: rotate(-90deg);
+  /* align-items: center; */
+  /* height: 100%; */
+  /* transform: rotate(-90deg); */
+  /* text-align: center; */
 }
 
 .content {
   display: flex;
-  justify-content: center;
-  height: 100%;
+  position: relative;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  height: 100vh;
 }

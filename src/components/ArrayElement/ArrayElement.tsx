@@ -1,10 +1,11 @@
 import React from "react";
+import styles from "./ArrayElement.module.css";
 
 export interface ArrayElementProps {
   background: string;
   width: string;
   height: string;
-  marginRight?: string;
+  display?: string;
 }
 
 const ArrayElement: React.FC<ArrayElementProps> = ({
@@ -14,11 +15,15 @@ const ArrayElement: React.FC<ArrayElementProps> = ({
 }) => {
   const style: ArrayElementProps = {
     background: background,
-    width: width,
-    height: height,
-    marginRight: "2px",
+    width: height,
+    height: width,
+    display: "inline-block",
   };
-  return <div data-testid="array-element" style={style}></div>;
+  return (
+    <div className={styles.container}>
+      <div data-testid="array-element" style={style}></div>
+    </div>
+  );
 };
 
 export default ArrayElement;

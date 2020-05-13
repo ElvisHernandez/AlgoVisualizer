@@ -3,6 +3,10 @@ import renderer from "react-test-renderer";
 import QuickSortButton from "../QuickSortButton";
 import { SortButtonProps } from "../../SortButton/SortButton";
 
+jest.mock("../../ArrayElement/ArrayElement.module.css", () => ({
+  container: "container",
+}));
+
 const defaultProps: SortButtonProps = {
   name: "QuickSort",
   sourceArray: [],

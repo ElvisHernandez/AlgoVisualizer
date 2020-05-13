@@ -3,6 +3,10 @@ import * as ReactDOM from "react-dom";
 import ArrayElements from "../ArrayElements";
 import { render, fireEvent, wait } from "@testing-library/react";
 
+jest.mock("../../ArrayElement/ArrayElement.module.css", () => ({
+  container: "container",
+}));
+
 jest.mock("../ArrayElements.module.css", () => ({
   bars: "bars",
   content: "content",
@@ -92,8 +96,8 @@ describe("Components should render", () => {
     const components = getAllByTestId("array-element");
 
     const defaultHeights: number[] = [];
-    components.forEach(({ style: { height } }) => {
-      const elementHeight = +height.slice(0, -2);
+    components.forEach(({ style: { width } }) => {
+      const elementHeight = +width.slice(0, -2);
       defaultHeights.push(elementHeight);
     });
 
@@ -102,8 +106,8 @@ describe("Components should render", () => {
     const newComponents = getAllByTestId("array-element");
     const newHeights: number[] = [];
 
-    newComponents.forEach(({ style: { height } }) => {
-      const elementHeight = +height.slice(0, -2);
+    newComponents.forEach(({ style: { width } }) => {
+      const elementHeight = +width.slice(0, -2);
       newHeights.push(elementHeight);
     });
 
