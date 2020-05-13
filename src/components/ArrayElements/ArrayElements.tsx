@@ -30,7 +30,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({
 
   useEffect(() => {
     makeArray(divCount, divLength);
-  }, []);
+  }, [divCount, divLength]);
 
   function makeArray(divCount: number, divLength: number): void {
     const currentArray = makeJSXArray(divCount, divLength);

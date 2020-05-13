@@ -73,13 +73,13 @@ describe("Components should render", () => {
     expect(slider).toBeTruthy();
   });
 
-  test("Slider should have a range from 0.001 to 100", () => {
-    const { getByLabelText } = render(arrayElement);
-    const slider = getByLabelText("Sorting Speed");
+  // test("Slider should have a range from 0.001 to 100", () => {
+  //   const { getByLabelText } = render(arrayElement);
+  //   const slider = getByLabelText("Sorting Speed");
 
-    expect(slider).toHaveAttribute("min", "0.001");
-    expect(slider).toHaveAttribute("max", "100");
-  });
+  //   expect(slider).toHaveAttribute("min", "0.001");
+  //   expect(slider).toHaveAttribute("max", "100");
+  // });
 
   test("Should render 100 ArrayElement components", () => {
     const { getAllByTestId } = render(arrayElement);

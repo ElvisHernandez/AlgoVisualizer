@@ -22,7 +22,6 @@ const DivCountSlider: React.FC<DivCountSliderProps> = ({
 }) => {
   function handleChange(e: any, newValue: number | number[]) {
     setDivCount!(newValue as number);
-    makeArray(newValue as number, divLength);
   }
 
   return (
