@@ -21,7 +21,7 @@ const SpeedSlider: React.FC<SpeedSliderProps> = ({ delay, setDelay }) => {
   }
   return (
     <div className={classes.root}>
-      <p style={{ margin: "0" }}>Sorting Speed</p>
+      Sorting Speed
       <Slider value={delay} min={0.001} max={100} onChange={handleChange} />
     </div>
   );

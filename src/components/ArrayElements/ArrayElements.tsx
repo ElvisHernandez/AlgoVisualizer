@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useImperativeHandle } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ArrayElements.module.css";
 import { makeJSXArray } from "../../utils/helpers/helpers";
 import MergeSortButton from "../MergeSortButton/MergeSortButton";
@@ -47,27 +47,23 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({
     delay,
   };
 
+  const sliderProps = {
+    makeArray,
+    defaultDivCount,
+    defaultDivLength,
+    divCount,
+    setDivCount,
+    divLength,
+    setDivLength,
+  };
+
   return (
     <div data-testid="array-elements" className={styles.content}>
-      <div className={styles.controls}>
-        <div
-          style={{ display: "flex", flexDirection: "row", marginTop: "1rem" }}
-        >
+      <div>
+        <div className={styles.sliders}>
           <SpeedSlider delay={delay} setDelay={setDelay} />
-          <DivCountSlider
-            makeArray={makeArray}
-            defaultDivCount={defaultDivCount}
-            divLength={divLength}
-            divCount={divCount}
-            setDivCount={setDivCount}
-          />
-          <DivLengthSlider
-            makeArray={makeArray}
-            defaultDivLength={defaultDivLength}
-            divCount={divCount}
-            divLength={divLength}
-            setDivLength={setDivLength}
-          />
+          <DivCountSlider {...sliderProps} />
+          <DivLengthSlider {...sliderProps} />
         </div>
         <button
           className="btn btn-dark"

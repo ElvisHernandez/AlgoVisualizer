@@ -1,6 +1,7 @@
-.controls {
-  /* display: flex; */
-  /* align-items: center; */
+.sliders {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
 }
 
 .bars {
