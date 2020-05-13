@@ -8,6 +8,7 @@ const DivLengthSlider: React.FC<DivCountSliderProps> = ({
   divCount,
   divLength,
   setDivLength,
+  isSorted,
 }) => {
   function handleChange(e: any, newValue: number | number[]) {
     setDivLength!(newValue as number);
@@ -20,6 +21,7 @@ const DivLengthSlider: React.FC<DivCountSliderProps> = ({
       value={divLength}
       min={100}
       max={defaultDivLength!}
+      disabled={isSorted}
       handleChange={handleChange}
     />
   );

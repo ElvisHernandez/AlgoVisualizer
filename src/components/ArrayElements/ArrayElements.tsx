@@ -55,6 +55,7 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({
     setDivCount,
     divLength,
     setDivLength,
+    isSorted,
   };
 
   return (

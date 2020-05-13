@@ -9,6 +9,7 @@ export interface DivCountSliderProps {
   setDivCount?: React.Dispatch<React.SetStateAction<number>>;
   divLength: number;
   setDivLength?: React.Dispatch<React.SetStateAction<number>>;
+  isSorted: boolean;
 }
 
 const DivCountSlider: React.FC<DivCountSliderProps> = ({
@@ -17,6 +18,7 @@ const DivCountSlider: React.FC<DivCountSliderProps> = ({
   divLength,
   divCount,
   setDivCount,
+  isSorted,
 }) => {
   function handleChange(e: any, newValue: number | number[]) {
     setDivCount!(newValue as number);
@@ -29,6 +31,7 @@ const DivCountSlider: React.FC<DivCountSliderProps> = ({
       value={divCount}
       min={10}
       max={defaultDivCount!}
+      disabled={isSorted}
       handleChange={handleChange}
     />
   );

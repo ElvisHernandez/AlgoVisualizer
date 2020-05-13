@@ -7,6 +7,7 @@ export interface SliderProps {
   value: number;
   min: number;
   max: number;
+  disabled: boolean;
   handleChange: (event: any, value: number | number[]) => void;
 }
 
@@ -23,6 +24,7 @@ const Slider: React.FC<SliderProps> = ({
   value,
   min,
   max,
+  disabled,
   handleChange,
 }) => {
   const classes = useStyles();
@@ -31,6 +33,7 @@ const Slider: React.FC<SliderProps> = ({
       {name}
       <MuiSlider
         id="div-count-slider"
+        disabled={disabled}
         value={value}
         min={min}
         max={max}
