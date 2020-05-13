@@ -49,7 +49,26 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({
 
   return (
     <div data-testid="array-elements" className={styles.content}>
-      <div>
+      <div className={styles.controls}>
+        <div
+          style={{ display: "flex", flexDirection: "row", marginTop: "1rem" }}
+        >
+          <SpeedSlider delay={delay} setDelay={setDelay} />
+          <DivCountSlider
+            makeArray={makeArray}
+            defaultDivCount={defaultDivCount}
+            divLength={divLength}
+            divCount={divCount}
+            setDivCount={setDivCount}
+          />
+          <DivLengthSlider
+            makeArray={makeArray}
+            defaultDivLength={defaultDivLength}
+            divCount={divCount}
+            divLength={divLength}
+            setDivLength={setDivLength}
+          />
+        </div>
         <button
           className="btn btn-dark"
           onClick={() => makeArray(divCount, divLength)}
@@ -62,19 +81,6 @@ const ArrayElements: React.FC<ArrayElementsProps> = ({
         <BubbleSortButton {...sortingProps} name="BubbleSort" />
         <SelectionSortButton {...sortingProps} name="SelectionSort" />
         <InsertionSortButton {...sortingProps} name="InsertionSort" />
-        <SpeedSlider delay={delay} setDelay={setDelay} />
-        <DivCountSlider
-          makeArray={makeArray}
-          defaultDivCount={defaultDivCount}
-          divLength={divLength}
-          setDivCount={setDivCount}
-        />
-        <DivLengthSlider
-          makeArray={makeArray}
-          defaultDivLength={divLength}
-          divCount={divCount}
-          setDivLength={setDivLength}
-        />
       </div>
       <div className={styles.bars}>{sourceArray.map((bar) => bar)}</div>
     </div>

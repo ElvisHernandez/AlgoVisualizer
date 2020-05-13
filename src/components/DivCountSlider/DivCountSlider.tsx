@@ -1,35 +1,48 @@
-import * as React from "react";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Slider from "@material-ui/core/Slider";
 
 export interface DivCountSliderProps {
   makeArray: (divCount: number, divLength: number) => void;
   defaultDivCount: number;
   divLength: number;
+  divCount: number;
   setDivCount: React.Dispatch<React.SetStateAction<number>>;
 }
+
+const useStyles = makeStyles({
+  root: {
+    width: 200,
+    textAlign: "center",
+    marginLeft: "1rem",
+  },
+});
 
 const DivCountSlider: React.FC<DivCountSliderProps> = ({
   makeArray,
   defaultDivCount,
   divLength,
+  divCount,
   setDivCount,
 }) => {
-  function handleChange(e: any) {
-    const { value } = e.target;
-    setDivCount(value);
-    makeArray(value, divLength);
+  const classes = useStyles();
+
+  function handleChange(e: any, newValue: number | number[]) {
+    setDivCount(newValue as number);
+    makeArray(newValue as number, divLength);
   }
 
   return (
-    <>
-      <label htmlFor="div-count-slider">Div Count</label>
-      <input
+    <div className={classes.root}>
+      <p style={{ margin: "0" }}>Array Size</p>
+      <Slider
         id="div-count-slider"
-        type="range"
-        min="10"
+        value={divCount}
+        min={10}
         max={defaultDivCount}
         onChange={handleChange}
       />
-    </>
+    </div>
   );
 };
 

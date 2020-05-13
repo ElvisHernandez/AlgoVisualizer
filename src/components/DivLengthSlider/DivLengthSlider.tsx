@@ -1,35 +1,47 @@
 import * as React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Slider from "@material-ui/core/Slider";
 
 export interface DivLengthSliderProps {
   makeArray: (divCount: number, divLength: number) => void;
   defaultDivLength: number;
   divCount: number;
+  divLength: number;
   setDivLength: React.Dispatch<React.SetStateAction<number>>;
 }
+
+const useStyles = makeStyles({
+  root: {
+    width: 200,
+    textAlign: "center",
+    marginLeft: "1rem",
+  },
+});
 
 const DivLengthSlider: React.FC<DivLengthSliderProps> = ({
   makeArray,
   defaultDivLength,
   divCount,
+  divLength,
   setDivLength,
 }) => {
-  function handleChange(e: any) {
-    const { value } = e.target;
-    console.log(value);
-    // setDivLength(value);
-    makeArray(divCount, value);
+  const classes = useStyles();
+  function handleChange(e: any, newValue: number | number[]) {
+    // const { value } = e.target;
+    setDivLength(newValue as number);
+    makeArray(divCount, newValue as number);
   }
 
   return (
-    <>
-      <label htmlFor="div-length-slider">Div Length</label>
-      <input
-        type="range"
-        min="100"
+    <div className={classes.root}>
+      <p style={{ margin: "0" }}>Div Length</p>
+      <Slider
+        value={divLength}
+        min={100}
         max={defaultDivLength}
         onChange={handleChange}
       />
-    </>
+    </div>
   );
 };
 
