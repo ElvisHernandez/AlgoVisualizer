@@ -17,7 +17,7 @@ const SortButton: React.FC<SortButtonProps> = ({
   sortArray,
 }) => {
   return (
-    <button onClick={sortArray} disabled={isSorted}>
+    <button className="btn btn-info" onClick={sortArray} disabled={isSorted}>
       {name}
     </button>
   );

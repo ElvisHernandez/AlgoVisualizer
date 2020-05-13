@@ -89,13 +89,13 @@ export function makeJSXArray(
 ): JSX.Element[] {
   const currentArray: JSX.Element[] = [];
   for (let i = 0; i < divCount; i++) {
-    const height = Math.floor(Math.random() * heightRange + 5);
+    const divHeight = Math.floor(Math.random() * heightRange + 5);
     currentArray.push(
       <ArrayElement
         key={i}
         background="#00e5ff"
         width="5px"
-        height={height + "px"}
+        height={divHeight + "px"}
       />
     );
   }
