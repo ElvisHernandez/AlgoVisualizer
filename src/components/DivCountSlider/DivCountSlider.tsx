@@ -13,9 +13,7 @@ export interface DivCountSliderProps {
 }
 
 const DivCountSlider: React.FC<DivCountSliderProps> = ({
-  makeArray,
   defaultDivCount,
-  divLength,
   divCount,
   setDivCount,
   isSorted,

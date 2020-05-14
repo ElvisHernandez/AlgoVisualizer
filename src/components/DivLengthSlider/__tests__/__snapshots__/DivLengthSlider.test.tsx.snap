@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`It renders correctly 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <label
+    htmlFor="Div Length"
+  >
+    Div Length
+  </label>
+  <span
+    className="MuiSlider-root MuiSlider-colorPrimary"
+    id="Div Length"
+    onMouseDown={[Function]}
+  >
+    <span
+      className="MuiSlider-rail"
+    />
+    <span
+      className="MuiSlider-track"
+      style={
+        Object {
+          "left": "NaN%",
+          "width": "NaN%",
+        }
+      }
+    />
+    <input
+      type="hidden"
+      value="100"
+    />
+    <span
+      aria-orientation="horizontal"
+      aria-valuemax={100}
+      aria-valuemin={100}
+      aria-valuenow={100}
+      className="MuiSlider-thumb MuiSlider-thumbColorPrimary"
+      data-index={0}
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseOver={[Function]}
+      role="slider"
+      style={
+        Object {
+          "left": "NaN%",
+        }
+      }
+      tabIndex={0}
+    />
+  </span>
+</div>
+`;

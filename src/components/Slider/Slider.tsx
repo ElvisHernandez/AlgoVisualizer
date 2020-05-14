@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     width: 200,
     textAlign: "center",
     marginLeft: "1rem",
+    display: "inline-block",
   },
 });
 

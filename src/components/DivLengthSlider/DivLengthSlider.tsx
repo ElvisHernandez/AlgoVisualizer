@@ -3,9 +3,7 @@ import Slider from "../Slider/Slider";
 import { DivCountSliderProps } from "../DivCountSlider/DivCountSlider";
 
 const DivLengthSlider: React.FC<DivCountSliderProps> = ({
-  makeArray,
   defaultDivLength,
-  divCount,
   divLength,
   setDivLength,
   isSorted,
